@@ -1,0 +1,317 @@
+.prefs-section {
+  background: var(--color-bg-elev);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 18px 20px;
+  margin-bottom: 14px;
+}
+
+.prefs-section-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-primary);
+  margin: 0 0 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.prefs-section-title::before {
+  content: "";
+  width: 4px;
+  height: 14px;
+  background: var(--color-primary);
+  border-radius: 2px;
+}
+
+.prefs-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.prefs-row:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.prefs-row:first-of-type {
+  padding-top: 0;
+}
+
+.prefs-row-info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+
+.prefs-row-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.prefs-row-desc {
+  font-size: 12px;
+  color: var(--color-text-soft);
+  line-height: 1.4;
+}
+
+.prefs-row-control {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.prefs-toggle {
+  background: var(--color-bg);
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary-soft);
+  padding: 7px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.prefs-toggle:hover {
+  background: var(--color-primary);
+  color: white;
+}
+
+.prefs-input {
+  min-width: 240px;
+  width: 240px;
+  font-size: 13px;
+}
+
+.prefs-danger {
+  color: var(--color-danger) !important;
+  border-color: var(--color-danger) !important;
+}
+
+.prefs-danger:hover {
+  background: var(--color-danger) !important;
+  color: white !important;
+  border-color: var(--color-danger) !important;
+}
+
+.prefs-about-section {
+  border-color: var(--color-primary-soft);
+}
+
+.prefs-about {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.prefs-about-icon {
+  width: 84px;
+  height: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.prefs-about-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.prefs-about-text strong {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.prefs-about-text em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.prefs-about-text p {
+  font-size: 13px;
+  color: var(--color-text-soft);
+  margin: 8px 0 0;
+  line-height: 1.55;
+}
+
+/* Section Triskell Studio (editeur) */
+.prefs-studio-section {
+  border-color: var(--color-border-strong);
+  background: linear-gradient(180deg, var(--color-bg-elev) 0%, var(--color-bg) 100%);
+}
+
+.prefs-studio {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.prefs-studio-logo {
+  display: block;
+  width: auto;
+  height: 48px;
+  max-width: 100%;
+  object-fit: contain;
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: var(--radius-md);
+  transition: background var(--transition);
+}
+
+[data-theme="dark"] .prefs-studio-logo {
+  background: #faf5e8;
+  height: 56px;
+  padding: 8px 18px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+}
+
+.prefs-studio-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.prefs-studio-text strong {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.01em;
+}
+
+.prefs-studio-text em {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.prefs-studio-text p {
+  font-size: 13px;
+  color: var(--color-text-soft);
+  margin: 8px 0 12px;
+  line-height: 1.55;
+}
+
+.prefs-studio-link {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--color-accent);
+  border: 1px solid var(--color-accent);
+  padding: 7px 14px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.prefs-studio-link:hover {
+  background: var(--color-accent);
+  color: white;
+}
+
+/* Barre Enregistrer les preferences */
+.prefs-save-bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 14px;
+  padding: 16px 20px;
+  background: var(--color-bg-elev);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 14px;
+  position: sticky;
+  bottom: 8px;
+  z-index: 5;
+  box-shadow: var(--shadow-md);
+}
+
+.prefs-save-status {
+  flex: 1;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+}
+
+.prefs-save-status.is-saved {
+  color: var(--color-success);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.prefs-save-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 22px;
+  font-weight: 600;
+  font-size: 14px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.prefs-save-btn:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.prefs-save-btn:active {
+  transform: translateY(0);
+}
+
+.prefs-save-btn.is-saved {
+  background: var(--color-success);
+}
+
+.prefs-save-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .prefs-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .prefs-input {
+    min-width: 100%;
+    width: 100%;
+  }
+  .prefs-about {
+    flex-direction: column;
+    text-align: center;
+  }
+  .prefs-save-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

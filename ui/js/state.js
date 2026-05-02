@@ -1,0 +1,3 @@
+window.AppState = {
+  currentFile: null,
+};

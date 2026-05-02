@@ -1,0 +1,197 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background:
+    radial-gradient(circle at 30% 20%, var(--splash-grad-1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 80%, var(--splash-grad-2) 0%, transparent 50%),
+    linear-gradient(135deg, var(--splash-grad-3) 0%, var(--splash-grad-4) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 500ms ease;
+  user-select: none;
+  overflow: hidden;
+}
+
+/* Texture papier subtile */
+.splash::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0, transparent 2px, var(--bg-paper-grain) 2px, var(--bg-paper-grain) 3px);
+  pointer-events: none;
+}
+
+.splash.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.splash-content {
+  text-align: center;
+  position: relative;
+  animation: splash-in 700ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
+}
+
+.splash-logo {
+  margin-bottom: 14px;
+  animation: pierre-bob 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+.splash-logo img {
+  width: 240px;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.splash-greeting {
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: var(--color-text-soft);
+  margin: 0 0 4px;
+  font-style: italic;
+}
+
+.splash-title {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 800;
+  color: var(--color-text);
+  margin: 0 0 18px;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+}
+
+.splash-tagline {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 15px;
+  color: var(--color-text-soft);
+  margin: 0 auto 36px;
+  font-weight: 500;
+  max-width: 460px;
+  line-height: 1.5;
+}
+
+.splash-tagline span:first-child {
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.splash-progress {
+  width: 320px;
+  max-width: 80vw;
+  height: 12px;
+  background: var(--color-bg-deep);
+  border: 2.5px solid var(--color-text);
+  border-radius: 999px;
+  margin: 0 auto 14px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 3px 3px 0 var(--color-text);
+}
+
+.splash-progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  animation: splash-progress-fill 6s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
+  position: relative;
+}
+
+.splash-progress-bar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 30px;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 245, 232, 0.6), transparent);
+  animation: splash-progress-shimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes splash-progress-fill {
+  0% { width: 0; }
+  20% { width: 18%; }
+  45% { width: 42%; }
+  70% { width: 68%; }
+  100% { width: 100%; }
+}
+
+@keyframes splash-progress-shimmer {
+  0%, 100% { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+.splash-progress-label {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--color-text-soft);
+  margin: 0 0 28px;
+}
+
+.splash-version {
+  font-size: 11px;
+  color: var(--color-text-muted);
+  margin: 0 0 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+}
+
+.splash-studio {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin: 0;
+  padding: 6px 14px;
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.splash-studio strong {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 0.02em;
+}
+
+.splash-studio-mark {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent);
+}
+
+.splash-studio-mark svg {
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes splash-in {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pierre-bob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-4px) rotate(-1.5deg); }
+  75% { transform: translateY(-4px) rotate(1.5deg); }
+}
+
+@keyframes splash-dot-bounce {
+  0%, 80%, 100% { transform: scale(0.55); opacity: 0.4; }
+  40% { transform: scale(1); opacity: 1; }
+}

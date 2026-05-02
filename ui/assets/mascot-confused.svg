@@ -1,0 +1,65 @@
+<svg viewBox="0 0 140 160" xmlns="http://www.w3.org/2000/svg" aria-label="Bertrand perplexe">
+  <g stroke="#1a1a2e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- Corps -->
+    <ellipse cx="70" cy="138" rx="42" ry="22" fill="#8a6d52"/>
+    <path d="M 43 120 L 97 120 L 105 160 L 35 160 Z" fill="#a8703f" stroke-width="2.8"/>
+
+    <!-- Patte droite levée se grattant la tête -->
+    <g transform="rotate(-25 95 70)">
+      <ellipse cx="95" cy="80" rx="8" ry="14" fill="#8a6d52"/>
+      <circle cx="93" cy="65" r="3.5" fill="#8a6d52" stroke-width="2.5"/>
+      <circle cx="100" cy="62" r="3" fill="#8a6d52" stroke-width="2.5"/>
+    </g>
+
+    <!-- Bulle de pensée "?" -->
+    <circle cx="118" cy="32" r="16" fill="#fff5e8" stroke-width="2.8"/>
+    <circle cx="103" cy="50" r="3" fill="#fff5e8" stroke-width="2"/>
+    <circle cx="98" cy="58" r="1.8" fill="#fff5e8" stroke-width="1.5"/>
+    <text x="118" y="40" font-family="Arial, sans-serif" font-size="22" font-weight="800" text-anchor="middle" fill="#1a1a2e" stroke-width="0">?</text>
+
+    <!-- Oreilles légèrement pliées -->
+    <g transform="rotate(-25 36 38)">
+      <ellipse cx="36" cy="38" rx="9" ry="11" fill="#8a6d52"/>
+      <ellipse cx="36" cy="38" rx="4" ry="5.5" fill="#e89c80" stroke-width="2"/>
+    </g>
+    <g transform="rotate(15 88 38)">
+      <ellipse cx="88" cy="38" rx="9" ry="11" fill="#8a6d52"/>
+      <ellipse cx="88" cy="38" rx="4" ry="5.5" fill="#e89c80" stroke-width="2"/>
+    </g>
+
+    <!-- Tete (légèrement inclinée) -->
+    <g transform="rotate(-5 65 65)">
+      <path d="M 65 38 C 40 38 31 60 35 80 C 39 98 53 106 65 106 C 77 106 91 98 95 80 C 99 60 90 38 65 38 Z" fill="#8a6d52"/>
+      <path d="M 65 46 C 47 48 41 66 43 78 C 47 92 55 100 65 100 C 75 100 83 92 87 78 C 89 66 83 48 65 46 Z" fill="#fff5e8" stroke-width="2.2"/>
+      <path d="M 51 48 C 41 56 37 70 39 80 C 43 88 49 90 55 86 C 59 74 56 56 51 48 Z" fill="#1a1a2e" stroke-width="0"/>
+      <path d="M 79 48 C 89 56 93 70 91 80 C 87 88 81 90 75 86 C 71 74 74 56 79 48 Z" fill="#1a1a2e" stroke-width="0"/>
+
+      <!-- Sourcil gauche levé (perplexe) -->
+      <path d="M 43 60 Q 51 56 59 60" stroke-width="3" fill="none"/>
+      <!-- Sourcil droit incliné asymétrique -->
+      <path d="M 71 56 L 87 64" stroke-width="3" fill="none"/>
+
+      <!-- Œil gauche normal -->
+      <ellipse cx="51" cy="70" rx="3.5" ry="3" fill="#fff5e8" stroke-width="2"/>
+      <ellipse cx="51" cy="71" rx="1.8" ry="1.8" fill="#1a1a2e" stroke-width="0"/>
+
+      <!-- Œil droit plissé (genre "hein ?") -->
+      <path d="M 75 70 Q 79 67 83 70" stroke-width="2.5" fill="none"/>
+
+      <!-- Museau -->
+      <path d="M 55 86 Q 65 92 75 86 Q 72 100 65 102 Q 58 100 55 86 Z" fill="#fff5e8" stroke-width="2.2"/>
+      <path d="M 60 90 Q 65 94 70 90 Q 68 92 65 92 Q 62 92 60 90 Z" fill="#1a1a2e" stroke-width="2"/>
+
+      <!-- Bouche en moue / "hmm" -->
+      <path d="M 58 100 Q 65 96 72 100" stroke-width="2.5" fill="none"/>
+    </g>
+
+    <!-- Beret de travers -->
+    <g transform="rotate(-22 65 28)">
+      <path d="M 37 30 Q 33 14 55 12 L 89 12 Q 99 16 95 30 C 81 36 47 36 37 30 Z" fill="#1e3a5f"/>
+      <circle cx="91" cy="16" r="3.5" fill="#1e3a5f" stroke-width="2.5"/>
+    </g>
+
+  </g>
+</svg>

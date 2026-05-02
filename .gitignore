@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+*.egg
+
+# Environnements
+.venv/
+venv/
+env/
+
+# Builds
+build/
+dist/
+installer_output/
+*.spec.bak
+
+# Inno Setup downloads (recreables)
+installer/prereqs/
+
+# Donnees temp
+*.log
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Exclus du depot mais utilise localement
+*.zip
+*.exe
+!installer/prereqs/.gitkeep
+!ui/assets/*.png
+!ui/assets/*.svg
+!ui/assets/*.ico

@@ -1,0 +1,135 @@
+<svg viewBox="0 0 260 320" xmlns="http://www.w3.org/2000/svg" aria-label="Bertrand vous accueille">
+  <g stroke="#1a1a2e" stroke-width="3.5" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- Patte gauche au repos (sur la hanche) -->
+    <ellipse cx="58" cy="248" rx="16" ry="20" fill="#8a6d52" transform="rotate(-15 58 248)"/>
+    <circle cx="48" cy="232" r="5" fill="#8a6d52" stroke-width="2.5"/>
+    <circle cx="50" cy="226" r="4" fill="#8a6d52" stroke-width="2.5"/>
+
+    <!-- Corps rondelet -->
+    <ellipse cx="130" cy="240" rx="80" ry="72" fill="#8a6d52"/>
+
+    <!-- Tablier d'artisan (avec relief) -->
+    <path d="M 80 195 L 180 195 L 195 312 L 70 312 Z" fill="#a8703f" stroke-width="3"/>
+    <path d="M 80 195 L 180 195 L 184 232 L 76 232 Z" fill="#c08850" stroke-width="2"/>
+
+    <!-- Bretelles tablier -->
+    <path d="M 95 195 Q 130 168 165 195" stroke-width="3.5" fill="none"/>
+
+    <!-- Coutures décoratives -->
+    <line x1="80" y1="232" x2="180" y2="232" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+    <!-- Rivets laiton -->
+    <circle cx="86" cy="220" r="3.5" fill="#c8923f" stroke-width="2"/>
+    <circle cx="174" cy="220" r="3.5" fill="#c8923f" stroke-width="2"/>
+
+    <!-- Poche tablier -->
+    <rect x="105" y="252" width="50" height="38" rx="3" fill="#7a4f2a" stroke-width="2.5"/>
+    <line x1="130" y1="252" x2="130" y2="290" stroke-width="2"/>
+
+    <!-- Stylo dans la poche -->
+    <rect x="148" y="244" width="4.5" height="18" rx="1.5" fill="#1e3a5f" stroke-width="2"/>
+    <circle cx="150.2" cy="244" r="2.5" fill="#c8923f" stroke-width="1.5"/>
+
+    <!-- Patte droite levée (salut énergique) -->
+    <g transform="rotate(20 200 195)">
+      <ellipse cx="200" cy="195" rx="16" ry="22" fill="#8a6d52"/>
+      <!-- Doigts ouverts -->
+      <ellipse cx="216" cy="170" rx="5" ry="9" fill="#8a6d52" stroke-width="2.5"/>
+      <ellipse cx="208" cy="165" rx="4" ry="8" fill="#8a6d52" stroke-width="2.5"/>
+      <ellipse cx="198" cy="164" rx="4" ry="8" fill="#8a6d52" stroke-width="2.5"/>
+      <ellipse cx="190" cy="167" rx="4" ry="7" fill="#8a6d52" stroke-width="2.5"/>
+    </g>
+
+    <!-- ======= Tete ======= -->
+
+    <!-- Oreille gauche -->
+    <g transform="rotate(-18 78 65)">
+      <ellipse cx="78" cy="65" rx="13" ry="16" fill="#8a6d52"/>
+      <ellipse cx="78" cy="65" rx="6" ry="8" fill="#e89c80" stroke-width="2"/>
+    </g>
+
+    <!-- Oreille droite -->
+    <g transform="rotate(18 182 65)">
+      <ellipse cx="182" cy="65" rx="13" ry="16" fill="#8a6d52"/>
+      <ellipse cx="182" cy="65" rx="6" ry="8" fill="#e89c80" stroke-width="2"/>
+    </g>
+
+    <!-- Tete -->
+    <path d="M 130 60
+             C 80 62 65 100 70 130
+             C 75 165 100 180 130 180
+             C 160 180 185 165 190 130
+             C 195 100 180 62 130 60 Z"
+          fill="#8a6d52"/>
+
+    <!-- Visage blanc -->
+    <path d="M 130 75
+             C 95 78 82 110 85 130
+             C 92 158 110 170 130 170
+             C 150 170 168 158 175 130
+             C 178 110 165 78 130 75 Z"
+          fill="#fff5e8" stroke-width="2.5"/>
+
+    <!-- Bande noire gauche -->
+    <path d="M 100 78
+             C 85 92 80 115 85 132
+             C 90 145 100 148 108 142
+             C 113 122 110 90 100 78 Z"
+          fill="#1a1a2e" stroke-width="0"/>
+
+    <!-- Bande noire droite -->
+    <path d="M 160 78
+             C 175 92 180 115 175 132
+             C 170 145 160 148 152 142
+             C 147 122 150 90 160 78 Z"
+          fill="#1a1a2e" stroke-width="0"/>
+
+    <!-- Sourcils relevés (accueillant) -->
+    <path d="M 86 102 Q 96 96 106 102" stroke-width="3.5" fill="none"/>
+    <path d="M 154 102 Q 164 96 174 102" stroke-width="3.5" fill="none"/>
+
+    <!-- Yeux -->
+    <ellipse cx="98" cy="118" rx="6.5" ry="7.5" fill="#fff5e8" stroke-width="2.5"/>
+    <ellipse cx="162" cy="118" rx="6.5" ry="7.5" fill="#fff5e8" stroke-width="2.5"/>
+
+    <!-- Pupilles avec direction (regardent vers le coin haut droit) -->
+    <circle cx="100" cy="119" r="3.5" fill="#1a1a2e" stroke-width="0"/>
+    <circle cx="164" cy="119" r="3.5" fill="#1a1a2e" stroke-width="0"/>
+
+    <!-- Brillances -->
+    <circle cx="101.5" cy="117" r="1.4" fill="#fff5e8" stroke-width="0"/>
+    <circle cx="165.5" cy="117" r="1.4" fill="#fff5e8" stroke-width="0"/>
+
+    <!-- Joues rosées -->
+    <ellipse cx="82" cy="142" rx="8" ry="5" fill="#e89c80" opacity="0.7" stroke-width="0"/>
+    <ellipse cx="178" cy="142" rx="8" ry="5" fill="#e89c80" opacity="0.7" stroke-width="0"/>
+
+    <!-- Museau -->
+    <path d="M 110 144 Q 130 154 150 144 Q 146 168 130 170 Q 114 168 110 144 Z"
+          fill="#fff5e8" stroke-width="2.5"/>
+
+    <!-- Truffe -->
+    <path d="M 120 150 Q 130 158 140 150 Q 136 154 130 154 Q 124 154 120 150 Z"
+          fill="#1a1a2e" stroke-width="2.5"/>
+
+    <!-- Bouche (sourire chaleureux et en biais) -->
+    <path d="M 122 162 Q 130 168 138 163" stroke-width="3" fill="none"/>
+
+    <!-- Beret incliné dynamique -->
+    <g transform="rotate(-8 130 50)">
+      <path d="M 78 56 Q 73 32 105 28 L 175 28 Q 188 32 184 56 C 158 64 100 64 78 56 Z"
+            fill="#1e3a5f"/>
+      <path d="M 88 48 Q 84 36 110 32 L 170 36" stroke="#2c5282" stroke-width="2.5" fill="none"/>
+      <circle cx="180" cy="34" r="6" fill="#1e3a5f" stroke-width="3"/>
+    </g>
+
+  </g>
+
+  <!-- Petites étoiles de salut sans contour -->
+  <g fill="#c8923f">
+    <path d="M 230 150 L 232 156 L 238 158 L 232 160 L 230 166 L 228 160 L 222 158 L 228 156 Z"/>
+    <path d="M 240 130 L 241 134 L 245 135 L 241 136 L 240 140 L 239 136 L 235 135 L 239 134 Z" opacity="0.7"/>
+    <circle cx="232" cy="120" r="2.5" opacity="0.6"/>
+  </g>
+</svg>

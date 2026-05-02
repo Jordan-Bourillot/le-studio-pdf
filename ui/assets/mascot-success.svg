@@ -1,0 +1,100 @@
+<svg viewBox="0 0 130 150" xmlns="http://www.w3.org/2000/svg" aria-label="Bertrand content">
+  <g stroke="#1a1a2e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- Corps partiel -->
+    <ellipse cx="65" cy="125" rx="42" ry="25" fill="#8a6d52"/>
+
+    <!-- Tablier -->
+    <path d="M 38 110 L 92 110 L 100 150 L 30 150 Z" fill="#a8703f" stroke-width="2.8"/>
+    <line x1="38" y1="124" x2="92" y2="124" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+    <!-- Patte droite levée (POUCE LEVÉ — pose iconique) -->
+    <g transform="rotate(15 100 90)">
+      <ellipse cx="100" cy="92" rx="9" ry="14" fill="#8a6d52"/>
+      <!-- Pouce dressé -->
+      <ellipse cx="108" cy="76" rx="5" ry="9" fill="#8a6d52" stroke-width="2.5"/>
+      <!-- Doigts repliés -->
+      <circle cx="98" cy="80" r="3.5" fill="#8a6d52" stroke-width="2.2"/>
+      <circle cx="92" cy="84" r="3" fill="#8a6d52" stroke-width="2.2"/>
+    </g>
+
+    <!-- Lignes d'action (BD style) -->
+    <path d="M 118 70 L 124 64" stroke-width="2" fill="none"/>
+    <path d="M 122 80 L 128 78" stroke-width="2" fill="none"/>
+    <path d="M 116 60 L 120 54" stroke-width="2" fill="none"/>
+
+    <!-- Oreille gauche -->
+    <g transform="rotate(-18 32 32)">
+      <ellipse cx="32" cy="32" rx="9" ry="11" fill="#8a6d52"/>
+      <ellipse cx="32" cy="32" rx="4" ry="5.5" fill="#e89c80" stroke-width="2"/>
+    </g>
+
+    <!-- Oreille droite -->
+    <g transform="rotate(18 88 32)">
+      <ellipse cx="88" cy="32" rx="9" ry="11" fill="#8a6d52"/>
+      <ellipse cx="88" cy="32" rx="4" ry="5.5" fill="#e89c80" stroke-width="2"/>
+    </g>
+
+    <!-- Tete -->
+    <path d="M 60 28
+             C 35 28 26 50 30 70
+             C 34 88 48 96 60 96
+             C 72 96 86 88 90 70
+             C 94 50 85 28 60 28 Z"
+          fill="#8a6d52"/>
+
+    <!-- Visage blanc -->
+    <path d="M 60 36
+             C 42 38 36 56 38 68
+             C 42 82 50 90 60 90
+             C 70 90 78 82 82 68
+             C 84 56 78 38 60 36 Z"
+          fill="#fff5e8" stroke-width="2.2"/>
+
+    <!-- Bande noire gauche -->
+    <path d="M 46 38
+             C 36 46 32 60 34 70
+             C 38 78 44 80 50 76
+             C 54 64 51 46 46 38 Z"
+          fill="#1a1a2e" stroke-width="0"/>
+
+    <!-- Bande noire droite -->
+    <path d="M 74 38
+             C 84 46 88 60 86 70
+             C 82 78 76 80 70 76
+             C 66 64 69 46 74 38 Z"
+          fill="#1a1a2e" stroke-width="0"/>
+
+    <!-- Sourcils relevés joyeux -->
+    <path d="M 38 50 Q 46 46 54 50" stroke-width="3" fill="none"/>
+    <path d="M 66 50 Q 74 46 82 50" stroke-width="3" fill="none"/>
+
+    <!-- Yeux fermés (contents) -->
+    <path d="M 42 60 Q 47 55 52 60" stroke-width="3" fill="none"/>
+    <path d="M 68 60 Q 73 55 78 60" stroke-width="3" fill="none"/>
+
+    <!-- Joues -->
+    <ellipse cx="36" cy="74" rx="5" ry="3" fill="#e89c80" opacity="0.75" stroke-width="0"/>
+    <ellipse cx="84" cy="74" rx="5" ry="3" fill="#e89c80" opacity="0.75" stroke-width="0"/>
+
+    <!-- Museau -->
+    <path d="M 50 76 Q 60 82 70 76 Q 67 90 60 92 Q 53 90 50 76 Z"
+          fill="#fff5e8" stroke-width="2.2"/>
+
+    <!-- Truffe -->
+    <path d="M 55 80 Q 60 84 65 80 Q 63 82 60 82 Q 57 82 55 80 Z"
+          fill="#1a1a2e" stroke-width="2"/>
+
+    <!-- GRAND sourire -->
+    <path d="M 50 88 Q 60 96 70 88" stroke-width="3" fill="none"/>
+
+    <!-- Beret incliné -->
+    <g transform="rotate(-12 60 22)">
+      <path d="M 32 24 Q 28 8 50 6 L 84 6 Q 94 10 90 24 C 76 30 42 30 32 24 Z"
+            fill="#1e3a5f"/>
+      <path d="M 40 18 Q 36 12 52 10 L 80 12" stroke="#2c5282" stroke-width="2" fill="none"/>
+      <circle cx="86" cy="10" r="3.5" fill="#1e3a5f" stroke-width="2.5"/>
+    </g>
+
+  </g>
+</svg>

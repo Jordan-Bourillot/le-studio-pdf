@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Studio PDF</title>
+  <script>
+    (function() {
+      try {
+        var stored = localStorage.getItem('studioPdfTheme');
+        if (stored === 'dark' || stored === 'light') {
+          document.documentElement.setAttribute('data-theme', stored);
+        } else {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="css/theme.css" />
+  <link rel="stylesheet" href="css/hub.css" />
+  <link rel="stylesheet" href="css/merge.css" />
+  <link rel="stylesheet" href="css/compress.css" />
+  <link rel="stylesheet" href="css/protect.css" />
+  <link rel="stylesheet" href="css/split.css" />
+  <link rel="stylesheet" href="css/welcome.css" />
+  <link rel="stylesheet" href="css/watermark.css" />
+  <link rel="stylesheet" href="css/convert.css" />
+  <link rel="stylesheet" href="css/ocr.css" />
+  <link rel="stylesheet" href="css/stamp.css" />
+  <link rel="stylesheet" href="css/prefs.css" />
+  <link rel="stylesheet" href="css/update.css" />
+</head>
+<body>
+  <div class="splash" id="splash">
+    <div class="splash-content">
+      <div class="splash-logo">
+        <img src="assets/bertrand_greeting.png" alt="" />
+      </div>
+      <p class="splash-greeting">Bonjour, moi c'est Bertrand le blaireau.</p>
+      <h1 class="splash-title">Le Studio PDF</h1>
+      <p class="splash-tagline">
+        <span>8 outils, une méthode artisanale.</span>
+        <span>Sans abonnement, sans cloud, sans bavardage.</span>
+      </p>
+      <div class="splash-progress">
+        <div class="splash-progress-bar"></div>
+      </div>
+      <p class="splash-progress-label">Bertrand prépare l'atelier…</p>
+      <p class="splash-version">Version 2.7</p>
+      <p class="splash-studio">
+        <span class="splash-studio-mark">
+          <img src="assets/triskell.svg" alt="" />
+        </span>
+        Un produit <strong>Triskell Studio</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="beta-banner" id="beta-banner" role="status"></div>
+  <div class="update-banner" id="update-banner" role="status"></div>
+
+  <div class="beta-expired" id="beta-expired" role="dialog" aria-modal="true">
+    <img class="beta-expired-mascot" src="assets/bertrand_confused.png" alt="" />
+    <span class="beta-expired-tag">Bêta expirée</span>
+    <h1 class="beta-expired-title">Cette version d'essai est arrivée à terme.</h1>
+    <p class="beta-expired-subtitle">
+      Téléchargez la dernière version sur GitHub pour continuer à utiliser Le Studio PDF.
+      Vos préférences et fichiers récents seront conservés.
+    </p>
+    <div class="beta-expired-actions">
+      <button class="beta-expired-btn" id="btn-beta-expired-download">
+        Télécharger la nouvelle version →
+      </button>
+    </div>
+    <p class="beta-expired-version" id="beta-expired-version"></p>
+  </div>
+
+  <header class="topbar">
+    <div class="topbar-brand">
+      <span class="logo"><img src="assets/bertrand_logo.png" alt="" /></span>
+      <div class="brand-stack">
+        <div class="brand-row">
+          <span class="brand-name">Le Studio PDF</span>
+          <span class="brand-version" id="brand-version">v2.7</span>
+        </div>
+        <span class="brand-tagline">par Bertrand, l'artisan blaireau</span>
+      </div>
+    </div>
+    <nav class="topbar-actions">
+      <button class="topbar-btn topbar-theme-btn" id="btn-theme" title="Mode sombre / clair" aria-label="Basculer le thème">
+        <svg class="theme-icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+        <svg class="theme-icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+        </svg>
+      </button>
+      <button class="topbar-btn" id="btn-prefs" title="Préférences" aria-label="Préférences">⚙️</button>
+      <button class="topbar-btn" id="btn-license" title="Licence" aria-label="Licence">🔑</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ============ VUE HUB ============ -->
+    <section class="view view-hub" id="view-hub">
+      <div class="hub">
+        <section class="hero">
+          <h1 class="hero-title">On regarde quel PDF aujourd'hui ?</h1>
+          <p class="hero-subtitle">8 outils, méthode artisanale, pas un octet qui sort de chez vous.</p>
+          <div class="bertrand-tip">
+            <img class="bertrand-tip-mascot" src="assets/bertrand_logo.png" alt="" />
+            <div class="bertrand-tip-bubble">Déposez votre PDF juste en dessous — je m'occupe du reste.</div>
+          </div>
+
+          <div class="dropzone" id="dropzone">
+            <div class="dropzone-inner" id="dropzone-empty">
+              <span class="dropzone-icon">📥</span>
+              <span class="dropzone-text">Déposez votre PDF ici</span>
+              <span class="dropzone-or">ou</span>
+              <button class="dropzone-button" id="btn-pick">Parcourir mes fichiers</button>
+            </div>
+            <div class="dropzone-loaded" id="dropzone-loaded" hidden>
+              <span class="dropzone-loaded-icon">📄</span>
+              <span class="dropzone-loaded-name-row">
+                <span class="dropzone-loaded-name" id="loaded-name"></span>
+                <span class="dropzone-loaded-check" aria-label="PDF chargé"><svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2.5 6.3 5 8.8 9.5 3.5"/></svg></span>
+              </span>
+              <span class="dropzone-loaded-meta" id="loaded-meta"></span>
+              <button class="dropzone-button-secondary" id="btn-change">Choisir un autre PDF</button>
+            </div>
+          </div>
+
+          <div class="trial-banner" id="trial-banner" hidden>
+            <span class="trial-icon">⏳</span>
+            <span class="trial-text" id="trial-text"></span>
+          </div>
+        </section>
+
+        <section class="actions">
+          <h2 class="section-title">Que voulez-vous faire ?</h2>
+          <div class="action-grid">
+            <button class="action-tile" data-action="merge">
+              <span class="action-icon">🔗</span>
+              <span class="action-label">Fusionner</span>
+              <span class="action-hint">Réunir plusieurs PDF en un seul</span>
+            </button>
+            <button class="action-tile" data-action="split">
+              <span class="action-icon">✂️</span>
+              <span class="action-label">Découper</span>
+              <span class="action-hint">Extraire ou réorganiser des pages</span>
+            </button>
+            <button class="action-tile" data-action="compress">
+              <span class="action-icon">🗜️</span>
+              <span class="action-label">Compresser</span>
+              <span class="action-hint">Réduire la taille pour l'envoyer</span>
+            </button>
+            <button class="action-tile" data-action="convert">
+              <span class="action-icon">🔄</span>
+              <span class="action-label">Convertir</span>
+              <span class="action-hint">Vers Word, Excel, image…</span>
+            </button>
+            <button class="action-tile" data-action="ocr">
+              <span class="action-icon">🔍</span>
+              <span class="action-label">OCR</span>
+              <span class="action-hint">Rendre un scan cherchable</span>
+            </button>
+            <button class="action-tile" data-action="protect">
+              <span class="action-icon">🔒</span>
+              <span class="action-label">Protéger</span>
+              <span class="action-hint">Mot de passe, permissions</span>
+            </button>
+            <button class="action-tile" data-action="watermark">
+              <span class="action-icon">💧</span>
+              <span class="action-label">Filigrane</span>
+              <span class="action-hint">Tampons, numérotation</span>
+            </button>
+            <button class="action-tile" data-action="annotate">
+              <span class="action-icon">✏️</span>
+              <span class="action-label">Annoter</span>
+              <span class="action-hint">Surligner, commenter, dessiner</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="recents">
+          <h2 class="section-title">Récents</h2>
+          <div class="recent-list" id="recent-list">
+            <div class="recent-empty">Aucun fichier récent. Ouvrez votre premier PDF ci-dessus.</div>
+          </div>
+        </section>
+
+        <button class="hub-footer" type="button" id="btn-hub-footer-link">
+          <span class="hub-footer-mark" aria-hidden="true">
+            <img src="assets/triskell.svg" alt="" />
+          </span>
+          Un produit <strong>Triskell Studio</strong> · Atelier numérique français
+          <span class="hub-footer-arrow" aria-hidden="true">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ============ VUE PRÉFÉRENCES ============ -->
+    <section class="view view-prefs" id="view-prefs" hidden>
+      <div class="module">
+        <div class="module-back">
+          <button class="btn-back" id="btn-back-prefs">← Retour au Hub</button>
+        </div>
+        <div class="module-hero">
+          <span class="module-icon">⚙️</span>
+          <h1 class="module-title">Préférences</h1>
+          <p class="module-subtitle">Réglez le studio à votre main.</p>
+        </div>
+
+        <div class="prefs-section">
+          <h2 class="prefs-section-title">Apparence</h2>
+          <div class="prefs-row">
+            <div class="prefs-row-info">
+              <span class="prefs-row-label">Thème</span>
+              <span class="prefs-row-desc">Mode clair pour le jour, sombre pour le soir.</span>
+            </div>
+            <div class="prefs-row-control">
+              <button class="prefs-toggle" id="btn-prefs-theme">
+                <span id="prefs-theme-current">Clair</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="prefs-section">
+          <h2 class="prefs-section-title">Sortie par défaut</h2>
+          <div class="prefs-row">
+            <div class="prefs-row-info">
+              <span class="prefs-row-label">Dossier de destination</span>
+              <span class="prefs-row-desc">Où vos PDF traités atterrissent par défaut.</span>
+            </div>
+            <div class="prefs-row-control">
+              <input class="form-input prefs-input" id="prefs-output-dir" type="text" readonly />
+              <button class="btn-secondary" id="btn-prefs-pick-dir">Choisir…</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="prefs-section">
+          <h2 class="prefs-section-title">OCR</h2>
+          <div class="prefs-row">
+            <div class="prefs-row-info">
+              <span class="prefs-row-label">Langue par défaut</span>
+              <span class="prefs-row-desc">Pré-sélectionnée à chaque OCR.</span>
+            </div>
+            <div class="prefs-row-control">
+              <select class="form-input" id="prefs-ocr-lang">
+                <option value="fra">🇫🇷 Français</option>
+                <option value="eng">🇬🇧 Anglais</option>
+                <option value="deu">🇩🇪 Allemand</option>
+                <option value="spa">🇪🇸 Espagnol</option>
+                <option value="ita">🇮🇹 Italien</option>
+                <option value="fra+eng">🇫🇷+🇬🇧 Mixte</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="prefs-section">
+          <h2 class="prefs-section-title">Données locales</h2>
+          <div class="prefs-row">
+            <div class="prefs-row-info">
+              <span class="prefs-row-label">Liste des fichiers récents</span>
+              <span class="prefs-row-desc">Effacer pour repartir d'une page blanche.</span>
+            </div>
+            <div class="prefs-row-control">
+              <button class="btn-secondary prefs-danger" id="btn-prefs-clear-recents">Effacer</button>
+            </div>
+          </div>
+          <div class="prefs-row">
+            <div class="prefs-row-info">
+              <span class="prefs-row-label">Dossier de stockage</span>
+              <span class="prefs-row-desc">Bertrand range ses notes ici. Sauvegardez ce dossier pour tout préserver.</span>
+            </div>
+            <div class="prefs-row-control">
+              <button class="btn-secondary" id="btn-prefs-open-data">Ouvrir</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="prefs-save-bar">
+          <span class="prefs-save-status" id="prefs-save-status"></span>
+          <button class="btn-primary prefs-save-btn" id="btn-prefs-save" type="button">
+            <span class="prefs-save-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                <polyline points="17 21 17 13 7 13 7 21"/>
+                <polyline points="7 3 7 8 15 8"/>
+              </svg>
+            </span>
+            Enregistrer les préférences
+          </button>
+        </div>
+
+        <div class="prefs-section">
+          <h2 class="prefs-section-title">Mises à jour</h2>
+          <div class="prefs-row">
+            <div class="prefs-row-info">
+              <span class="prefs-row-label">Canal de distribution</span>
+              <span class="prefs-row-desc">Stable = versions finales. Bêta = versions de test plus récentes mais possiblement instables.</span>
+            </div>
+            <div class="prefs-row-control">
+              <div class="prefs-channel-toggle">
+                <button data-channel="stable" class="is-active">Stable</button>
+                <button data-channel="beta">Bêta</button>
+              </div>
+            </div>
+          </div>
+          <div class="prefs-row">
+            <div class="prefs-row-info">
+              <span class="prefs-row-label">Vérifier maintenant</span>
+              <span class="prefs-row-desc">Recherche manuelle d'une nouvelle version sur GitHub.</span>
+            </div>
+            <div class="prefs-row-control">
+              <button class="btn-secondary" id="btn-prefs-check-update">Vérifier</button>
+            </div>
+          </div>
+          <div class="prefs-update-status" id="prefs-update-status"></div>
+        </div>
+
+        <div class="prefs-section prefs-about-section">
+          <h2 class="prefs-section-title">À propos</h2>
+          <div class="prefs-about">
+            <img class="prefs-about-icon" src="assets/bertrand_logo.png" alt="" />
+            <div class="prefs-about-text">
+              <strong>Le Studio PDF — version 2.7</strong>
+              <em>par Bertrand, l'artisan blaireau</em>
+              <p>L'atelier français qui range, taille, signe et tamponne vos PDF — sans abonnement, sans cloud, sans bavardage.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="prefs-section prefs-studio-section">
+          <h2 class="prefs-section-title">L'éditeur</h2>
+          <div class="prefs-studio">
+            <img class="prefs-studio-logo" src="assets/triskell_logo.png" alt="Triskell Studio" />
+            <div class="prefs-studio-text">
+              <em>Atelier numérique français</em>
+              <p>Le Studio PDF est conçu et maintenu par Triskell Studio. Nous fabriquons des outils logiciels artisanaux : locaux, durables, sans abonnement.</p>
+              <button class="prefs-studio-link" id="btn-prefs-studio-link" type="button">
+                Visiter triskell-studio.fr
+                <span aria-hidden="true">→</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VUE ANNOTER (TAMPONS) ============ -->
+    <section class="view view-stamp" id="view-stamp" hidden>
+      <div class="module">
+        <div class="module-back">
+          <button class="btn-back" id="btn-back-st">← Retour au Hub</button>
+        </div>
+        <div class="module-hero">
+          <span class="module-icon">✏️</span>
+          <h1 class="module-title">Tamponner un PDF</h1>
+          <p class="module-subtitle">Apposez un tampon "PAYÉ", "BROUILLON", "APPROUVÉ" ou personnalisé sur les pages choisies.</p>
+        </div>
+        <div class="bertrand-tip">
+          <img class="bertrand-tip-mascot" src="assets/bertrand_logo.png" alt="" />
+          <div class="bertrand-tip-bubble">PAYÉ, BROUILLON, URGENT, ce que vous voulez — un coup de tampon et hop.</div>
+        </div>
+
+        <div class="step-row" id="st-step-row-1">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-content">
+              <span class="step-title">Sélectionnez votre PDF</span>
+              <span class="step-subtitle">Glissez-déposez ou cliquez pour parcourir.</span>
+            </div>
+          </div>
+          <div class="st-input-zone" id="st-input-zone">
+            <div class="st-input-empty" id="st-input-empty">
+              <span class="st-input-icon">📥</span>
+              <span class="st-input-text">Glissez votre PDF ici</span>
+              <span class="st-input-or">ou</span>
+              <button class="st-input-button" id="btn-st-pick">Choisir un fichier</button>
+            </div>
+            <div class="st-input-loaded" id="st-input-loaded" hidden>
+              <span class="st-input-icon">📄</span>
+              <span class="file-name-row">
+                <span class="file-name st-loaded-name" id="st-loaded-name"></span>
+                <span class="file-check"><svg width="9" height="9" viewBox="0 0 12 12" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2.5 6.3 5 8.8 9.5 3.5"/></svg></span>
+              </span>
+              <span class="st-loaded-meta" id="st-loaded-meta"></span>
+              <button class="st-input-secondary" id="btn-st-change">Choisir un autre PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row" id="st-step-row-2" hidden>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-content">
+              <span class="step-title">Choisissez votre tampon</span>
+              <span class="step-subtitle">Préréglage classique ou texte personnalisé.</span>
+            </div>
+          </div>
+          <div class="st-block">
+            <div class="st-presets">
+              <button class="st-preset" data-preset="PAYÉ">PAYÉ</button>
+              <button class="st-preset" data-preset="BROUILLON">BROUILLON</button>
+              <button class="st-preset" data-preset="APPROUVÉ">APPROUVÉ</button>
+              <button class="st-preset" data-preset="CONFIDENTIEL">CONFIDENTIEL</button>
+              <button class="st-preset" data-preset="COPIE">COPIE</button>
+              <button class="st-preset" data-preset="REÇU">REÇU</button>
+              <button class="st-preset" data-preset="URGENT">URGENT</button>
+              <button class="st-preset" data-preset="ANNULÉ">ANNULÉ</button>
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="st-text">Texte du tampon</label>
+              <input class="form-input st-text-input" id="st-text" type="text" maxlength="20" value="PAYÉ" />
+              <span class="form-hint">Modifiable — sera affiché en majuscules.</span>
+            </div>
+            <div class="form-row">
+              <label class="form-label">Couleur</label>
+              <div class="st-colors">
+                <button class="st-color st-color--red st-color--selected" data-color="red" title="Rouge"></button>
+                <button class="st-color st-color--blue" data-color="blue" title="Bleu"></button>
+                <button class="st-color st-color--green" data-color="green" title="Vert"></button>
+                <button class="st-color st-color--orange" data-color="orange" title="Orange"></button>
+                <button class="st-color st-color--black" data-color="black" title="Noir"></button>
+              </div>
+            </div>
+            <div class="form-row">
+              <label class="form-label">Position sur la page</label>
+              <div class="wm-positions">
+                <button class="wm-position wm-position--active" data-pos="top-left">↖</button>
+                <button class="wm-position" data-pos="top-center">↑</button>
+                <button class="wm-position" data-pos="top-right">↗</button>
+                <button class="wm-position" data-pos="center">●</button>
+                <button class="wm-position" data-pos="bottom-left">↙</button>
+                <button class="wm-position" data-pos="bottom-center">↓</button>
+                <button class="wm-position" data-pos="bottom-right">↘</button>
+              </div>
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="st-pages">Pages à tamponner</label>
+              <div class="st-pages-helpers">
+                <button class="st-page-helper st-page-helper--active" data-pages="all">Toutes</button>
+                <button class="st-page-helper" data-pages="first">Première</button>
+                <button class="st-page-helper" data-pages="last">Dernière</button>
+                <button class="st-page-helper" data-pages="custom">Personnalisé</button>
+              </div>
+              <input class="form-input st-pages-input" id="st-pages" type="text" placeholder="ex : 1-3, 5, 8" hidden />
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row" id="st-step-row-3" hidden>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-content">
+              <span class="step-title">Réglages de sortie</span>
+              <span class="step-subtitle">Choisissez le nom et le dossier du fichier tamponné.</span>
+            </div>
+          </div>
+          <div class="merge-output">
+            <div class="form-row">
+              <label class="form-label" for="st-name">Nom du fichier de sortie</label>
+              <input class="form-input" id="st-name" type="text" />
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="st-folder">Dossier de destination</label>
+              <div class="form-input-row">
+                <input class="form-input" id="st-folder" type="text" readonly />
+                <button class="btn-secondary" id="btn-st-pick-folder">Choisir…</button>
+              </div>
+            </div>
+            <div class="merge-action-bar">
+              <button class="btn-primary" id="btn-st-run" disabled>Choisissez un PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="st-success" id="st-success" hidden>
+          <img class="success-mascot" src="assets/bertrand_success.png" alt="" />
+          <span class="merge-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12 10 17 19 7"/></svg></span>
+          <h2 class="merge-success-title">Tampon apposé</h2>
+          <p class="merge-success-info" id="st-success-info"></p>
+          <div class="merge-success-actions">
+            <button class="btn-secondary" id="btn-st-open">Ouvrir le fichier</button>
+            <button class="btn-secondary" id="btn-st-explorer">Voir dans le dossier</button>
+            <button class="btn-primary" id="btn-st-again">Nouveau tamponnage</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VUE CONVERTIR ============ -->
+    <section class="view view-convert" id="view-convert" hidden>
+      <div class="module">
+        <div class="module-back">
+          <button class="btn-back" id="btn-back-cv">← Retour au Hub</button>
+        </div>
+        <div class="module-hero">
+          <span class="module-icon">🔄</span>
+          <h1 class="module-title">Convertir un PDF</h1>
+          <p class="module-subtitle">Transformez votre PDF en document Word ou en images.</p>
+        </div>
+        <div class="bertrand-tip">
+          <img class="bertrand-tip-mascot" src="assets/bertrand_logo.png" alt="" />
+          <div class="bertrand-tip-bubble">Word pour réécrire, images pour récupérer chaque page. À vos ordres.</div>
+        </div>
+
+        <div class="step-row" id="cv-step-row-1">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-content">
+              <span class="step-title">Sélectionnez votre PDF</span>
+              <span class="step-subtitle" id="cv-step-1-subtitle">Glissez-déposez ou cliquez pour parcourir.</span>
+            </div>
+          </div>
+          <div class="cv-input-zone" id="cv-input-zone">
+            <div class="cv-input-empty" id="cv-input-empty">
+              <span class="cv-input-icon">📥</span>
+              <span class="cv-input-text">Glissez votre PDF ici</span>
+              <span class="cv-input-or">ou</span>
+              <button class="cv-input-button" id="btn-cv-pick">Choisir un fichier</button>
+            </div>
+            <div class="cv-input-loaded" id="cv-input-loaded" hidden>
+              <span class="cv-input-icon">📄</span>
+              <span class="file-name-row">
+                <span class="file-name cv-loaded-name" id="cv-loaded-name"></span>
+                <span class="file-check"><svg width="9" height="9" viewBox="0 0 12 12" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2.5 6.3 5 8.8 9.5 3.5"/></svg></span>
+              </span>
+              <span class="cv-loaded-meta" id="cv-loaded-meta"></span>
+              <button class="cv-input-secondary" id="btn-cv-change">Choisir un autre PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row" id="cv-step-row-2" hidden>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-content">
+              <span class="step-title">Choisissez le format</span>
+              <span class="step-subtitle">Word pour éditer le texte, Images pour récupérer chaque page.</span>
+            </div>
+          </div>
+          <div class="cv-formats">
+            <button class="cv-format cv-format--selected" data-fmt="word">
+              <span class="cv-format-icon">📝</span>
+              <span class="cv-format-name">Word (.docx)</span>
+              <span class="cv-format-desc">Texte éditable, mise en page préservée au mieux.</span>
+            </button>
+            <button class="cv-format" data-fmt="images">
+              <span class="cv-format-icon">🖼️</span>
+              <span class="cv-format-name">Images (PNG / JPEG)</span>
+              <span class="cv-format-desc">Une image par page, qualité ajustable.</span>
+            </button>
+          </div>
+
+          <div class="cv-options cv-options-images" id="cv-options-images" hidden>
+            <div class="form-row">
+              <label class="form-label">Format d'image</label>
+              <div class="cv-img-fmt">
+                <button class="cv-pill cv-pill--active" data-img-fmt="png">PNG</button>
+                <button class="cv-pill" data-img-fmt="jpeg">JPEG</button>
+              </div>
+            </div>
+            <div class="form-row">
+              <label class="form-label">Résolution</label>
+              <div class="cv-img-fmt">
+                <button class="cv-pill" data-dpi="72">72 dpi (web)</button>
+                <button class="cv-pill cv-pill--active" data-dpi="144">144 dpi (équilibre)</button>
+                <button class="cv-pill" data-dpi="300">300 dpi (impression)</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row" id="cv-step-row-3" hidden>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-content">
+              <span class="step-title">Réglages de sortie</span>
+              <span class="step-subtitle" id="cv-step-3-subtitle">Choisissez le nom et le dossier.</span>
+            </div>
+          </div>
+          <div class="merge-output">
+            <div class="form-row" id="cv-name-row">
+              <label class="form-label" for="cv-name">Nom du fichier de sortie</label>
+              <input class="form-input" id="cv-name" type="text" />
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="cv-folder">Dossier de destination</label>
+              <div class="form-input-row">
+                <input class="form-input" id="cv-folder" type="text" readonly />
+                <button class="btn-secondary" id="btn-cv-pick-folder">Choisir…</button>
+              </div>
+            </div>
+            <div class="merge-action-bar">
+              <button class="btn-primary" id="btn-cv-run" disabled>Choisissez un PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cv-success" id="cv-success" hidden>
+          <img class="success-mascot" src="assets/bertrand_success.png" alt="" />
+          <span class="merge-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12 10 17 19 7"/></svg></span>
+          <h2 class="merge-success-title">Conversion réussie</h2>
+          <p class="merge-success-info" id="cv-success-info"></p>
+          <div class="merge-success-actions">
+            <button class="btn-secondary" id="btn-cv-open">Ouvrir le résultat</button>
+            <button class="btn-secondary" id="btn-cv-explorer">Voir dans le dossier</button>
+            <button class="btn-primary" id="btn-cv-again">Nouvelle conversion</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VUE OCR ============ -->
+    <section class="view view-ocr" id="view-ocr" hidden>
+      <div class="module">
+        <div class="module-back">
+          <button class="btn-back" id="btn-back-ocr">← Retour au Hub</button>
+        </div>
+        <div class="module-hero">
+          <span class="module-icon">🔍</span>
+          <h1 class="module-title">OCR — Rendre un scan cherchable</h1>
+          <p class="module-subtitle">Reconnaître le texte d'un PDF scanné pour pouvoir le rechercher et le copier.</p>
+        </div>
+        <div class="bertrand-tip">
+          <img class="bertrand-tip-mascot" src="assets/bertrand_logo.png" alt="" />
+          <div class="bertrand-tip-bubble">Du texte qu'on peut chercher avec Ctrl+F, vous allez voir, c'est magique.</div>
+        </div>
+
+        <div class="ocr-deps" id="ocr-deps" hidden>
+          <span class="ocr-deps-icon">⚠️</span>
+          <div class="ocr-deps-text">
+            <strong>Tesseract OCR n'est pas installé sur votre PC.</strong>
+            <p>Cet outil utilise Tesseract (libre et gratuit) pour reconnaître les caractères. Téléchargez-le et relancez l'application.</p>
+            <a class="btn-primary ocr-deps-link" id="ocr-deps-link" href="#">Obtenir Tesseract</a>
+          </div>
+        </div>
+
+        <div class="step-row" id="ocr-step-row-1">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-content">
+              <span class="step-title">Sélectionnez votre PDF scanné</span>
+              <span class="step-subtitle">Glissez-déposez ou cliquez pour parcourir.</span>
+            </div>
+          </div>
+          <div class="ocr-input-zone" id="ocr-input-zone">
+            <div class="ocr-input-empty" id="ocr-input-empty">
+              <span class="ocr-input-icon">📥</span>
+              <span class="ocr-input-text">Glissez votre PDF ici</span>
+              <span class="ocr-input-or">ou</span>
+              <button class="ocr-input-button" id="btn-ocr-pick">Choisir un fichier</button>
+            </div>
+            <div class="ocr-input-loaded" id="ocr-input-loaded" hidden>
+              <span class="ocr-input-icon">📄</span>
+              <span class="file-name-row">
+                <span class="file-name ocr-loaded-name" id="ocr-loaded-name"></span>
+                <span class="file-check"><svg width="9" height="9" viewBox="0 0 12 12" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2.5 6.3 5 8.8 9.5 3.5"/></svg></span>
+              </span>
+              <span class="ocr-loaded-meta" id="ocr-loaded-meta"></span>
+              <button class="ocr-input-secondary" id="btn-ocr-change">Choisir un autre PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row" id="ocr-step-row-2" hidden>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-content">
+              <span class="step-title">Choisissez la langue</span>
+              <span class="step-subtitle">Influence la qualité de la reconnaissance.</span>
+            </div>
+          </div>
+          <div class="ocr-langs">
+            <button class="ocr-lang ocr-lang--selected" data-lang="fra">🇫🇷 Français</button>
+            <button class="ocr-lang" data-lang="eng">🇬🇧 Anglais</button>
+            <button class="ocr-lang" data-lang="deu">🇩🇪 Allemand</button>
+            <button class="ocr-lang" data-lang="spa">🇪🇸 Espagnol</button>
+            <button class="ocr-lang" data-lang="ita">🇮🇹 Italien</button>
+            <button class="ocr-lang" data-lang="fra+eng">🇫🇷 + 🇬🇧</button>
+          </div>
+        </div>
+
+        <div class="step-row" id="ocr-step-row-3" hidden>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-content">
+              <span class="step-title">Réglages de sortie</span>
+              <span class="step-subtitle">Choisissez le nom et le dossier.</span>
+            </div>
+          </div>
+          <div class="merge-output">
+            <div class="form-row">
+              <label class="form-label" for="ocr-name">Nom du fichier de sortie</label>
+              <input class="form-input" id="ocr-name" type="text" />
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="ocr-folder">Dossier de destination</label>
+              <div class="form-input-row">
+                <input class="form-input" id="ocr-folder" type="text" readonly />
+                <button class="btn-secondary" id="btn-ocr-pick-folder">Choisir…</button>
+              </div>
+            </div>
+            <div class="merge-action-bar">
+              <button class="btn-primary" id="btn-ocr-run" disabled>Choisissez un PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="ocr-success" id="ocr-success" hidden>
+          <img class="success-mascot" src="assets/bertrand_success.png" alt="" />
+          <span class="merge-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12 10 17 19 7"/></svg></span>
+          <h2 class="merge-success-title">OCR terminé</h2>
+          <p class="merge-success-info" id="ocr-success-info"></p>
+          <div class="merge-success-actions">
+            <button class="btn-secondary" id="btn-ocr-open">Ouvrir le PDF</button>
+            <button class="btn-secondary" id="btn-ocr-explorer">Voir dans le dossier</button>
+            <button class="btn-primary" id="btn-ocr-again">Nouvel OCR</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VUE FILIGRANE ============ -->
+    <section class="view view-watermark" id="view-watermark" hidden>
+      <div class="module">
+        <div class="module-back">
+          <button class="btn-back" id="btn-back-wm">← Retour au Hub</button>
+        </div>
+
+        <div class="module-hero">
+          <span class="module-icon">💧</span>
+          <h1 class="module-title">Filigrane &amp; numérotation</h1>
+          <p class="module-subtitle">Ajoutez un filigrane texte ou numérotez les pages de votre PDF.</p>
+        </div>
+        <div class="bertrand-tip">
+          <img class="bertrand-tip-mascot" src="assets/bertrand_logo.png" alt="" />
+          <div class="bertrand-tip-bubble">Un beau "CONFIDENTIEL" en travers ou des numéros bien rangés en pied de page.</div>
+        </div>
+
+        <div class="step-row" id="wm-step-row-1">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-content">
+              <span class="step-title">Sélectionnez votre PDF</span>
+              <span class="step-subtitle" id="wm-step-1-subtitle">Glissez-déposez ou cliquez pour parcourir.</span>
+            </div>
+          </div>
+          <div class="wm-input-zone" id="wm-input-zone">
+            <div class="wm-input-empty" id="wm-input-empty">
+              <span class="wm-input-icon">📥</span>
+              <span class="wm-input-text">Glissez votre PDF ici</span>
+              <span class="wm-input-or">ou</span>
+              <button class="wm-input-button" id="btn-wm-pick">Choisir un fichier</button>
+            </div>
+            <div class="wm-input-loaded" id="wm-input-loaded" hidden>
+              <span class="wm-input-icon">📄</span>
+              <span class="file-name-row">
+                <span class="file-name wm-loaded-name" id="wm-loaded-name"></span>
+                <span class="file-check"><svg width="9" height="9" viewBox="0 0 12 12" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2.5 6.3 5 8.8 9.5 3.5"/></svg></span>
+              </span>
+              <span class="wm-loaded-meta" id="wm-loaded-meta"></span>
+              <button class="wm-input-secondary" id="btn-wm-change">Choisir un autre PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row" id="wm-step-row-2" hidden>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-content">
+              <span class="step-title">Choisissez l'action</span>
+              <span class="step-subtitle">Filigrane texte en travers de chaque page, ou numérotation discrète en pied/tête.</span>
+            </div>
+          </div>
+          <div class="wm-tabs">
+            <button class="wm-tab wm-tab--active" data-mode="text">
+              <span class="wm-tab-icon">💧</span>
+              <span class="wm-tab-label">Filigrane texte</span>
+              <span class="wm-tab-desc">"CONFIDENTIEL" en diagonale, semi-transparent</span>
+            </button>
+            <button class="wm-tab" data-mode="numbers">
+              <span class="wm-tab-icon">🔢</span>
+              <span class="wm-tab-label">Numéroter les pages</span>
+              <span class="wm-tab-desc">Page 1 / 10 — discret au pied de page</span>
+            </button>
+          </div>
+
+          <div class="wm-mode wm-mode-text" id="wm-mode-text">
+            <div class="form-row">
+              <label class="form-label" for="wm-text">Texte du filigrane</label>
+              <input class="form-input wm-text-input" id="wm-text" type="text" maxlength="40" value="CONFIDENTIEL" />
+              <span class="form-hint">Modifiable — cliquez pour remplacer (ex : BROUILLON, COPIE, NE PAS DIFFUSER…)</span>
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="wm-opacity">Opacité <span id="wm-opacity-val" class="form-label-value">30 %</span></label>
+              <input class="wm-slider" id="wm-opacity" type="range" min="10" max="80" value="30" step="5" />
+            </div>
+          </div>
+
+          <div class="wm-mode wm-mode-numbers" id="wm-mode-numbers" hidden>
+            <div class="form-row">
+              <label class="form-label">Position du numéro</label>
+              <div class="wm-positions">
+                <button class="wm-position" data-pos="top-left" title="En haut à gauche">↖</button>
+                <button class="wm-position" data-pos="top-center" title="En haut au centre">↑</button>
+                <button class="wm-position" data-pos="top-right" title="En haut à droite">↗</button>
+                <button class="wm-position" data-pos="bottom-left" title="En bas à gauche">↙</button>
+                <button class="wm-position" data-pos="bottom-center" title="En bas au centre">↓</button>
+                <button class="wm-position wm-position--active" data-pos="bottom-right" title="En bas à droite">↘</button>
+              </div>
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="wm-format">Format</label>
+              <select class="form-input" id="wm-format">
+                <option value="{n} / {total}" selected>1 / 10</option>
+                <option value="Page {n} / {total}">Page 1 / 10</option>
+                <option value="{n}">1</option>
+                <option value="- {n} -">- 1 -</option>
+                <option value="{n} sur {total}">1 sur 10</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="wm-start">Numéro de la première page</label>
+              <input class="form-input" id="wm-start" type="number" min="1" value="1" />
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row" id="wm-step-row-3" hidden>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-content">
+              <span class="step-title">Réglages de sortie</span>
+              <span class="step-subtitle">Choisissez le nom et le dossier du fichier de sortie.</span>
+            </div>
+          </div>
+          <div class="merge-output">
+            <div class="form-row">
+              <label class="form-label" for="wm-name">Nom du fichier de sortie</label>
+              <input class="form-input" id="wm-name" type="text" />
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="wm-folder">Dossier de destination</label>
+              <div class="form-input-row">
+                <input class="form-input" id="wm-folder" type="text" readonly />
+                <button class="btn-secondary" id="btn-wm-pick-folder">Choisir…</button>
+              </div>
+            </div>
+            <div class="merge-action-bar">
+              <button class="btn-primary" id="btn-wm-run" disabled>Choisissez un PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="wm-success" id="wm-success" hidden>
+          <img class="success-mascot" src="assets/bertrand_success.png" alt="" />
+          <span class="merge-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12 10 17 19 7"/></svg></span>
+          <h2 class="merge-success-title">Opération réussie</h2>
+          <p class="merge-success-info" id="wm-success-info"></p>
+          <div class="merge-success-actions">
+            <button class="btn-secondary" id="btn-wm-open">Ouvrir le fichier</button>
+            <button class="btn-secondary" id="btn-wm-explorer">Voir dans le dossier</button>
+            <button class="btn-primary" id="btn-wm-again">Recommencer</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VUE DÉCOUPER ============ -->
+    <section class="view view-split" id="view-split" hidden>
+      <div class="module">
+        <div class="module-back">
+          <button class="btn-back" id="btn-back-split">← Retour au Hub</button>
+        </div>
+
+        <div class="module-hero">
+          <span class="module-icon">✂️</span>
+          <h1 class="module-title">Découper un PDF</h1>
+          <p class="module-subtitle">Extrayez les pages que vous voulez dans un nouveau PDF.</p>
+        </div>
+        <div class="bertrand-tip">
+          <img class="bertrand-tip-mascot" src="assets/bertrand_logo.png" alt="" />
+          <div class="bertrand-tip-bubble">On garde juste les bonnes pages, le reste ne sort pas du tiroir.</div>
+        </div>
+
+        <div class="step-row" id="spl-step-row-1">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-content">
+              <span class="step-title">Sélectionnez votre PDF</span>
+              <span class="step-subtitle" id="spl-step-1-subtitle">Glissez-déposez ou cliquez pour parcourir.</span>
+            </div>
+          </div>
+          <div class="spl-input-zone" id="spl-input-zone">
+            <div class="spl-input-empty" id="spl-input-empty">
+              <span class="spl-input-icon">📥</span>
+              <span class="spl-input-text">Glissez votre PDF ici</span>
+              <span class="spl-input-or">ou</span>
+              <button class="spl-input-button" id="btn-spl-pick">Choisir un fichier</button>
+            </div>
+            <div class="spl-input-loaded" id="spl-input-loaded" hidden>
+              <span class="spl-input-icon">📄</span>
+              <span class="file-name-row">
+                <span class="file-name spl-loaded-name" id="spl-loaded-name"></span>
+                <span class="file-check" aria-label="PDF chargé"><svg width="9" height="9" viewBox="0 0 12 12" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2.5 6.3 5 8.8 9.5 3.5"/></svg></span>
+              </span>
+              <span class="spl-loaded-meta" id="spl-loaded-meta"></span>
+              <button class="spl-input-secondary" id="btn-spl-change">Choisir un autre PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row" id="spl-step-row-2" hidden>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-content">
+              <span class="step-title">Choisissez les pages à extraire</span>
+              <span class="step-subtitle">Saisissez des numéros de page séparés par des virgules. Les plages sont supportées (ex : 1-5, 8, 10-12).</span>
+            </div>
+          </div>
+          <div class="spl-pages-block">
+            <div class="form-row">
+              <label class="form-label" for="spl-ranges">Pages à extraire</label>
+              <input class="form-input" id="spl-ranges" type="text" placeholder="ex : 1-5, 8, 10-12" autocomplete="off" />
+            </div>
+
+            <div class="spl-helpers">
+              <button class="spl-helper" data-helper="all">Toutes les pages</button>
+              <button class="spl-helper" data-helper="even">Pages paires</button>
+              <button class="spl-helper" data-helper="odd">Pages impaires</button>
+              <button class="spl-helper" data-helper="first-half">1ʳᵉ moitié</button>
+              <button class="spl-helper" data-helper="second-half">2ᵉ moitié</button>
+              <button class="spl-helper" data-helper="last">Dernière page</button>
+            </div>
+
+            <div class="spl-preview" id="spl-preview">
+              <span class="spl-preview-icon">📄</span>
+              <span class="spl-preview-text" id="spl-preview-text">Saisissez des pages pour voir un aperçu.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row" id="spl-step-row-3" hidden>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-content">
+              <span class="step-title">Réglages de sortie</span>
+              <span class="step-subtitle">Choisissez le nom et le dossier du fichier extrait.</span>
+            </div>
+          </div>
+          <div class="merge-output">
+            <div class="form-row">
+              <label class="form-label" for="spl-name">Nom du fichier de sortie</label>
+              <input class="form-input" id="spl-name" type="text" placeholder="extrait.pdf" />
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="spl-folder">Dossier de destination</label>
+              <div class="form-input-row">
+                <input class="form-input" id="spl-folder" type="text" readonly />
+                <button class="btn-secondary" id="btn-spl-pick-folder">Choisir…</button>
+              </div>
+            </div>
+            <div class="merge-action-bar">
+              <button class="btn-primary" id="btn-spl-run" disabled>Choisissez un PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="spl-success" id="spl-success" hidden>
+          <img class="success-mascot" src="assets/bertrand_success.png" alt="" />
+          <span class="merge-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12 10 17 19 7"/></svg></span>
+          <h2 class="merge-success-title">Extraction réussie</h2>
+          <p class="merge-success-info" id="spl-success-info"></p>
+          <div class="merge-success-actions">
+            <button class="btn-secondary" id="btn-spl-open">Ouvrir le fichier</button>
+            <button class="btn-secondary" id="btn-spl-explorer">Voir dans le dossier</button>
+            <button class="btn-primary" id="btn-spl-again">Nouvelle extraction</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VUE PROTÉGER ============ -->
+    <section class="view view-protect" id="view-protect" hidden>
+      <div class="module">
+        <div class="module-back">
+          <button class="btn-back" id="btn-back-protect">← Retour au Hub</button>
+        </div>
+
+        <div class="module-hero">
+          <span class="module-icon">🔒</span>
+          <h1 class="module-title">Protéger un PDF</h1>
+          <p class="module-subtitle">Verrouillez votre PDF avec un mot de passe pour qu'il reste confidentiel.</p>
+        </div>
+        <div class="bertrand-tip">
+          <img class="bertrand-tip-mascot" src="assets/bertrand_logo.png" alt="" />
+          <div class="bertrand-tip-bubble">Verrouillé à double tour, bien sûr. AES-256, ça ne plaisante pas.</div>
+        </div>
+
+        <div class="step-row" id="prt-step-row-1">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-content">
+              <span class="step-title">Sélectionnez votre PDF</span>
+              <span class="step-subtitle" id="prt-step-1-subtitle">Glissez-déposez ou cliquez pour parcourir.</span>
+            </div>
+          </div>
+          <div class="prt-input-zone" id="prt-input-zone">
+            <div class="prt-input-empty" id="prt-input-empty">
+              <span class="prt-input-icon">📥</span>
+              <span class="prt-input-text">Glissez votre PDF ici</span>
+              <span class="prt-input-or">ou</span>
+              <button class="prt-input-button" id="btn-prt-pick">Choisir un fichier</button>
+            </div>
+            <div class="prt-input-loaded" id="prt-input-loaded" hidden>
+              <span class="prt-input-icon">📄</span>
+              <span class="file-name-row">
+                <span class="file-name prt-loaded-name" id="prt-loaded-name"></span>
+                <span class="file-check" aria-label="PDF chargé"><svg width="9" height="9" viewBox="0 0 12 12" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2.5 6.3 5 8.8 9.5 3.5"/></svg></span>
+              </span>
+              <span class="prt-loaded-meta" id="prt-loaded-meta"></span>
+              <button class="prt-input-secondary" id="btn-prt-change">Choisir un autre PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row" id="prt-step-row-2" hidden>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-content">
+              <span class="step-title">Définissez le mot de passe</span>
+              <span class="step-subtitle">Ce mot de passe sera demandé à chaque ouverture du PDF. Notez-le, il n'est récupérable nulle part.</span>
+            </div>
+          </div>
+          <div class="prt-pwd-block">
+            <div class="form-row">
+              <label class="form-label" for="prt-pwd">Mot de passe</label>
+              <div class="pwd-input-row">
+                <input class="form-input" id="prt-pwd" type="password" placeholder="Au moins 6 caractères" autocomplete="new-password" />
+                <button class="pwd-toggle" id="btn-prt-toggle1" type="button" aria-label="Afficher / masquer">👁</button>
+              </div>
+              <div class="pwd-strength" id="prt-strength" hidden>
+                <span class="pwd-strength-bar"><span class="pwd-strength-fill" id="prt-strength-fill"></span></span>
+                <span class="pwd-strength-label" id="prt-strength-label"></span>
+              </div>
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="prt-pwd2">Confirmer le mot de passe</label>
+              <div class="pwd-input-row">
+                <input class="form-input" id="prt-pwd2" type="password" placeholder="Retapez le même mot de passe" autocomplete="new-password" />
+                <button class="pwd-toggle" id="btn-prt-toggle2" type="button" aria-label="Afficher / masquer">👁</button>
+              </div>
+              <div class="pwd-match" id="prt-match" hidden></div>
+            </div>
+
+            <details class="prt-perms" id="prt-perms">
+              <summary class="prt-perms-summary">Restrictions supplémentaires (optionnel)</summary>
+              <div class="prt-perms-body">
+                <label class="prt-perm">
+                  <input type="checkbox" id="prt-block-print" />
+                  <span class="prt-perm-text">
+                    <span class="prt-perm-title">Empêcher l'impression</span>
+                    <span class="prt-perm-desc">Personne ne pourra imprimer le PDF.</span>
+                  </span>
+                </label>
+                <label class="prt-perm">
+                  <input type="checkbox" id="prt-block-copy" />
+                  <span class="prt-perm-text">
+                    <span class="prt-perm-title">Empêcher la copie de texte</span>
+                    <span class="prt-perm-desc">Le texte ne pourra pas être copié-collé.</span>
+                  </span>
+                </label>
+                <label class="prt-perm">
+                  <input type="checkbox" id="prt-block-modify" checked />
+                  <span class="prt-perm-text">
+                    <span class="prt-perm-title">Empêcher la modification</span>
+                    <span class="prt-perm-desc">Le PDF ne pourra pas être édité ou annoté (recommandé).</span>
+                  </span>
+                </label>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="step-row" id="prt-step-row-3" hidden>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-content">
+              <span class="step-title">Réglages de sortie</span>
+              <span class="step-subtitle">Choisissez le nom et le dossier du fichier protégé.</span>
+            </div>
+          </div>
+          <div class="merge-output">
+            <div class="form-row">
+              <label class="form-label" for="prt-name">Nom du fichier de sortie</label>
+              <input class="form-input" id="prt-name" type="text" placeholder="fichier_protege.pdf" />
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="prt-folder">Dossier de destination</label>
+              <div class="form-input-row">
+                <input class="form-input" id="prt-folder" type="text" readonly />
+                <button class="btn-secondary" id="btn-prt-pick-folder">Choisir…</button>
+              </div>
+            </div>
+            <div class="merge-action-bar">
+              <button class="btn-primary" id="btn-prt-run" disabled>Choisissez un PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="prt-success" id="prt-success" hidden>
+          <img class="success-mascot" src="assets/bertrand_success.png" alt="" />
+          <span class="merge-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12 10 17 19 7"/></svg></span>
+          <h2 class="merge-success-title">PDF protégé</h2>
+          <p class="merge-success-info" id="prt-success-info"></p>
+          <div class="prt-success-warning" id="prt-success-warning">
+            ⚠️ Notez bien votre mot de passe — il est <strong>impossible</strong> de le récupérer si vous l'oubliez.
+          </div>
+          <div class="merge-success-actions">
+            <button class="btn-secondary" id="btn-prt-explorer">Voir dans le dossier</button>
+            <button class="btn-primary" id="btn-prt-again">Protéger un autre PDF</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VUE COMPRESSER ============ -->
+    <section class="view view-compress" id="view-compress" hidden>
+      <div class="module">
+        <div class="module-back">
+          <button class="btn-back" id="btn-back-compress">← Retour au Hub</button>
+        </div>
+
+        <div class="module-hero">
+          <span class="module-icon">🗜️</span>
+          <h1 class="module-title">Compresser un PDF</h1>
+          <p class="module-subtitle">Réduisez la taille de votre PDF pour l'envoyer plus facilement.</p>
+        </div>
+        <div class="bertrand-tip">
+          <img class="bertrand-tip-mascot" src="assets/bertrand_logo.png" alt="" />
+          <div class="bertrand-tip-bubble">Allez, on dégraisse le mammouth pour qu'il passe par mail.</div>
+        </div>
+
+        <div class="step-row" id="cmp-step-row-1">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-content">
+              <span class="step-title">Sélectionnez votre PDF</span>
+              <span class="step-subtitle" id="cmp-step-1-subtitle">Glissez-déposez ou cliquez pour parcourir.</span>
+            </div>
+          </div>
+          <div class="cmp-input-zone" id="cmp-input-zone">
+            <div class="cmp-input-empty" id="cmp-input-empty">
+              <span class="cmp-input-icon">📥</span>
+              <span class="cmp-input-text">Glissez votre PDF ici</span>
+              <span class="cmp-input-or">ou</span>
+              <button class="cmp-input-button" id="btn-cmp-pick">Choisir un fichier</button>
+            </div>
+            <div class="cmp-input-loaded" id="cmp-input-loaded" hidden>
+              <span class="cmp-input-icon">📄</span>
+              <span class="file-name-row">
+                <span class="file-name cmp-loaded-name" id="cmp-loaded-name"></span>
+                <span class="file-check" aria-label="PDF chargé"><svg width="9" height="9" viewBox="0 0 12 12" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2.5 6.3 5 8.8 9.5 3.5"/></svg></span>
+              </span>
+              <span class="cmp-loaded-meta" id="cmp-loaded-meta"></span>
+              <button class="cmp-input-secondary" id="btn-cmp-change">Choisir un autre PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="step-row" id="cmp-step-row-2" hidden>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-content">
+              <span class="step-title">Choisissez le niveau</span>
+              <span class="step-subtitle">Plus la compression est forte, plus la qualité d'image baisse.</span>
+            </div>
+          </div>
+          <div class="cmp-presets">
+            <button class="cmp-preset" data-level="mail">
+              <span class="cmp-preset-icon">✉️</span>
+              <span class="cmp-preset-name">Mail</span>
+              <span class="cmp-preset-desc">Optimisée pour l'envoi : flux compressés + linéarisation web.</span>
+              <span class="cmp-preset-saving">Réduction : 10–30 %</span>
+            </button>
+            <button class="cmp-preset cmp-preset--selected" data-level="web">
+              <span class="cmp-preset-badge">Recommandé</span>
+              <span class="cmp-preset-icon">🌐</span>
+              <span class="cmp-preset-name">Web</span>
+              <span class="cmp-preset-desc">Bon équilibre qualité / taille, sans risque pour la lecture.</span>
+              <span class="cmp-preset-saving">Réduction : 5–20 %</span>
+            </button>
+            <button class="cmp-preset" data-level="archive">
+              <span class="cmp-preset-icon">📦</span>
+              <span class="cmp-preset-name">Archive</span>
+              <span class="cmp-preset-desc">Qualité préservée à 100 %, optimisation très légère.</span>
+              <span class="cmp-preset-saving">Réduction : 0–10 %</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="step-row" id="cmp-step-row-3" hidden>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-content">
+              <span class="step-title">Réglages de sortie</span>
+              <span class="step-subtitle">Choisissez le nom et le dossier du fichier compressé.</span>
+            </div>
+          </div>
+          <div class="merge-output">
+            <div class="form-row">
+              <label class="form-label" for="cmp-name">Nom du fichier de sortie</label>
+              <input class="form-input" id="cmp-name" type="text" placeholder="fichier_compresse.pdf" />
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="cmp-folder">Dossier de destination</label>
+              <div class="form-input-row">
+                <input class="form-input" id="cmp-folder" type="text" readonly />
+                <button class="btn-secondary" id="btn-cmp-pick-folder">Choisir…</button>
+              </div>
+            </div>
+            <div class="merge-action-bar">
+              <button class="btn-primary" id="btn-cmp-run" disabled>Choisissez un PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="cmp-success" id="cmp-success" hidden>
+          <img class="success-mascot" src="assets/bertrand_success.png" alt="" />
+          <span class="merge-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12 10 17 19 7"/></svg></span>
+          <h2 class="merge-success-title">Compression réussie</h2>
+          <div class="cmp-success-stats" id="cmp-success-stats"></div>
+          <div class="merge-success-actions">
+            <button class="btn-secondary" id="btn-cmp-open">Ouvrir le fichier</button>
+            <button class="btn-secondary" id="btn-cmp-explorer">Voir dans le dossier</button>
+            <button class="btn-primary" id="btn-cmp-again">Nouvelle compression</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ VUE FUSIONNER ============ -->
+    <section class="view view-merge" id="view-merge" hidden>
+      <div class="module">
+        <div class="module-back">
+          <button class="btn-back" id="btn-back-merge">← Retour au Hub</button>
+        </div>
+
+        <div class="module-hero">
+          <span class="module-icon">🔗</span>
+          <h1 class="module-title">Fusionner des PDF</h1>
+          <p class="module-subtitle">Combinez plusieurs PDF en un seul fichier, dans l'ordre que vous voulez.</p>
+        </div>
+        <div class="bertrand-tip">
+          <img class="bertrand-tip-mascot" src="assets/bertrand_logo.png" alt="" />
+          <div class="bertrand-tip-bubble">On va coller tout ça en un seul PDF — vous m'indiquez juste l'ordre.</div>
+        </div>
+
+        <div class="step-row" id="step-row-1">
+          <div class="step">
+            <span class="step-num">1</span>
+            <div class="step-content">
+              <span class="step-title">Ajoutez vos PDF</span>
+              <span class="step-subtitle">Glissez-déposez plusieurs fichiers ou cliquez pour parcourir.</span>
+            </div>
+          </div>
+          <div class="merge-add-zone" id="merge-add-zone">
+            <span class="merge-add-icon">📥</span>
+            <span class="merge-add-text">Glissez vos PDF ici</span>
+            <span class="merge-add-or">ou</span>
+            <button class="merge-add-button" id="btn-merge-add">Ajouter des fichiers</button>
+          </div>
+        </div>
+
+        <div class="step-row" id="step-row-2" hidden>
+          <div class="step">
+            <span class="step-num">2</span>
+            <div class="step-content">
+              <span class="step-title">Vérifiez l'ordre</span>
+              <span class="step-subtitle" id="step-2-subtitle">Utilisez les flèches pour réorganiser, ✕ pour retirer.</span>
+            </div>
+          </div>
+          <div class="merge-list-block" id="merge-list-block">
+            <ul class="merge-list" id="merge-list"></ul>
+            <div class="merge-totals" id="merge-totals"></div>
+          </div>
+        </div>
+
+        <div class="step-row" id="step-row-3" hidden>
+          <div class="step">
+            <span class="step-num">3</span>
+            <div class="step-content">
+              <span class="step-title">Réglages de sortie</span>
+              <span class="step-subtitle">Choisissez le nom et le dossier du fichier fusionné.</span>
+            </div>
+          </div>
+          <div class="merge-output" id="merge-output">
+            <div class="form-row">
+              <label class="form-label" for="merge-name">Nom du fichier de sortie</label>
+              <input class="form-input" id="merge-name" type="text" placeholder="fusion.pdf" />
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="merge-folder">Dossier de destination</label>
+              <div class="form-input-row">
+                <input class="form-input" id="merge-folder" type="text" readonly />
+                <button class="btn-secondary" id="btn-pick-folder">Choisir…</button>
+              </div>
+            </div>
+            <div class="merge-action-bar">
+              <button class="btn-primary" id="btn-merge-run" disabled>Ajoutez au moins 2 PDF</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="merge-success" id="merge-success" hidden>
+          <img class="success-mascot" src="assets/bertrand_success.png" alt="" />
+          <span class="merge-success-icon"><svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" d="M5 12 10 17 19 7"/></svg></span>
+          <h2 class="merge-success-title">Fusion réussie</h2>
+          <p class="merge-success-info" id="merge-success-info"></p>
+          <div class="merge-success-actions">
+            <button class="btn-secondary" id="btn-merge-open">Ouvrir le fichier</button>
+            <button class="btn-secondary" id="btn-merge-explorer">Voir dans le dossier</button>
+            <button class="btn-primary" id="btn-merge-again">Nouvelle fusion</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <script src="js/common.js"></script>
+  <script src="js/state.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/merge.js"></script>
+  <script src="js/compress.js"></script>
+  <script src="js/protect.js"></script>
+  <script src="js/split.js"></script>
+  <script src="js/watermark.js"></script>
+  <script src="js/convert.js"></script>
+  <script src="js/ocr.js"></script>
+  <script src="js/stamp.js"></script>
+  <script src="js/prefs.js"></script>
+  <script src="js/updater.js"></script>
+  <script src="js/hub.js"></script>
+</body>
+</html>

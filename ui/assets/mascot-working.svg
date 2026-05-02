@@ -1,0 +1,69 @@
+<svg viewBox="0 0 130 150" xmlns="http://www.w3.org/2000/svg" aria-label="Bertrand au travail">
+  <g stroke="#1a1a2e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+
+    <!-- Corps -->
+    <ellipse cx="65" cy="128" rx="42" ry="22" fill="#8a6d52"/>
+    <path d="M 38 110 L 92 110 L 100 150 L 30 150 Z" fill="#a8703f" stroke-width="2.8"/>
+    <line x1="38" y1="124" x2="92" y2="124" stroke-width="1.5" stroke-dasharray="3 3"/>
+
+    <!-- Patte droite tenant une plume -->
+    <g transform="rotate(-12 92 102)">
+      <ellipse cx="92" cy="102" rx="8" ry="13" fill="#8a6d52"/>
+      <line x1="98" y1="92" x2="118" y2="58" stroke-width="3"/>
+      <path d="M 118 58 Q 126 50 122 42 Q 113 50 116 64 Z" fill="#1e3a5f" stroke-width="2.5"/>
+    </g>
+
+    <!-- Patte gauche posée sur "page" -->
+    <ellipse cx="32" cy="118" rx="10" ry="6" fill="#8a6d52" stroke-width="2.5"/>
+
+    <!-- Petite "page" sous la patte -->
+    <rect x="20" y="115" width="20" height="14" rx="1" fill="#fff5e8" stroke-width="2"/>
+    <line x1="24" y1="120" x2="36" y2="120" stroke-width="1.2"/>
+    <line x1="24" y1="124" x2="34" y2="124" stroke-width="1.2"/>
+
+    <!-- Oreilles -->
+    <g transform="rotate(-18 32 32)">
+      <ellipse cx="32" cy="32" rx="9" ry="11" fill="#8a6d52"/>
+      <ellipse cx="32" cy="32" rx="4" ry="5.5" fill="#e89c80" stroke-width="2"/>
+    </g>
+    <g transform="rotate(18 88 32)">
+      <ellipse cx="88" cy="32" rx="9" ry="11" fill="#8a6d52"/>
+      <ellipse cx="88" cy="32" rx="4" ry="5.5" fill="#e89c80" stroke-width="2"/>
+    </g>
+
+    <!-- Tete -->
+    <path d="M 60 28 C 35 28 26 50 30 70 C 34 88 48 96 60 96 C 72 96 86 88 90 70 C 94 50 85 28 60 28 Z" fill="#8a6d52"/>
+    <path d="M 60 36 C 42 38 36 56 38 68 C 42 82 50 90 60 90 C 70 90 78 82 82 68 C 84 56 78 38 60 36 Z" fill="#fff5e8" stroke-width="2.2"/>
+    <path d="M 46 38 C 36 46 32 60 34 70 C 38 78 44 80 50 76 C 54 64 51 46 46 38 Z" fill="#1a1a2e" stroke-width="0"/>
+    <path d="M 74 38 C 84 46 88 60 86 70 C 82 78 76 80 70 76 C 66 64 69 46 74 38 Z" fill="#1a1a2e" stroke-width="0"/>
+
+    <!-- Sourcils froncés (concentré) -->
+    <path d="M 38 52 L 52 50" stroke-width="3" fill="none"/>
+    <path d="M 68 50 L 82 52" stroke-width="3" fill="none"/>
+
+    <!-- Yeux baissés vers le travail -->
+    <ellipse cx="46" cy="62" rx="3.5" ry="2.8" fill="#fff5e8" stroke-width="2"/>
+    <ellipse cx="74" cy="62" rx="3.5" ry="2.8" fill="#fff5e8" stroke-width="2"/>
+    <ellipse cx="46" cy="63.5" rx="1.8" ry="2" fill="#1a1a2e" stroke-width="0"/>
+    <ellipse cx="74" cy="63.5" rx="1.8" ry="2" fill="#1a1a2e" stroke-width="0"/>
+
+    <!-- Museau -->
+    <path d="M 50 76 Q 60 82 70 76 Q 67 90 60 92 Q 53 90 50 76 Z" fill="#fff5e8" stroke-width="2.2"/>
+    <path d="M 55 80 Q 60 84 65 80 Q 63 82 60 82 Q 57 82 55 80 Z" fill="#1a1a2e" stroke-width="2"/>
+
+    <!-- Bouche (petite, concentrée) -->
+    <path d="M 56 88 L 64 88" stroke-width="2.5" fill="none"/>
+
+    <!-- Lunettes de lecture sur le bout du nez -->
+    <circle cx="46" cy="62" r="6" fill="none" stroke-width="2.2"/>
+    <circle cx="74" cy="62" r="6" fill="none" stroke-width="2.2"/>
+    <line x1="52" y1="62" x2="68" y2="62" stroke-width="2.2"/>
+
+    <!-- Beret -->
+    <g transform="rotate(-12 60 22)">
+      <path d="M 32 24 Q 28 8 50 6 L 84 6 Q 94 10 90 24 C 76 30 42 30 32 24 Z" fill="#1e3a5f"/>
+      <circle cx="86" cy="10" r="3.5" fill="#1e3a5f" stroke-width="2.5"/>
+    </g>
+
+  </g>
+</svg>
