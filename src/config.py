@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 
 APP_NAME = "Le Studio PDF"
-APP_VERSION = "2.7.0"
+APP_VERSION = "2.7.1"
 APP_PUBLISHER = "Triskell Studio"
 
 # Beta lifecycle

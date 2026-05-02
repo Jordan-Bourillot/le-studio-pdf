@@ -46,8 +46,8 @@ VersionInfoVersion={#MyAppVersion}
 Name: "french"; MessagesFile: "compiler:Languages\French.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "Créer un raccourci sur le {cm:UninstallProgram,bureau}"; GroupDescription: "Raccourcis supplémentaires :"; Flags: unchecked
-Name: "quicklaunchicon"; Description: "Créer un raccourci dans la barre de lancement rapide"; GroupDescription: "Raccourcis supplémentaires :"; Flags: unchecked; OnlyBelowVersion: 6.1
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
+Name: "quicklaunchicon"; Description: "{cm:CreateQuickLaunchIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked; OnlyBelowVersion: 6.1
 
 [Files]
 Source: "..\dist\LeStudioPDF\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion

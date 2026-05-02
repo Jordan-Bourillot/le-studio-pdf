@@ -6,6 +6,14 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · [SemVer](ht
 
 ---
 
+## [2.7.1] — 2026-05-03 — Bêta
+
+### 🐛 Corrections
+- Le texte buggué *« Désinstaller bureau »* dans l'installeur est remplacé par le bon *« Créer une icône sur le Bureau »* (utilise les constantes localisées d'Inno Setup)
+- La case « Créer une icône sur le Bureau » est maintenant **cochée par défaut** dans l'assistant d'installation
+
+---
+
 ## [2.7.0] — 2026-05-03 — Bêta
 
 ### 🦡 Identité
