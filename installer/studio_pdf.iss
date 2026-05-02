@@ -5,7 +5,9 @@
 ; ============================================================
 
 #define MyAppName "Le Studio PDF"
-#define MyAppVersion "2.7.0"
+#ifndef MyAppVersion
+  #define MyAppVersion "2.7.0"
+#endif
 #define MyAppPublisher "Triskell Studio"
 #define MyAppURL "https://triskell-studio.fr"
 #define MyAppExeName "LeStudioPDF.exe"

@@ -6,6 +6,13 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · [SemVer](ht
 
 ---
 
+## [2.7.2] — 2026-05-03 — Bêta
+
+### 🐛 Corrections
+- L'installeur utilise maintenant correctement la version passée par la GitHub Action (avant : nom du fichier figé à 2.7.0 même pour les nouvelles versions)
+
+---
+
 ## [2.7.1] — 2026-05-03 — Bêta
 
 ### 🐛 Corrections
