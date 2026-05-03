@@ -6,6 +6,13 @@ Format : [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · [SemVer](ht
 
 ---
 
+## [2.7.3] — 2026-05-03 — Bêta
+
+### 🐛 Corrections
+- Tous les affichages de version (topbar, splash, section "À propos" des Préférences) sont désormais **synchronisés automatiquement** depuis `APP_VERSION`. Plus jamais de version codée en dur à 3 endroits.
+
+---
+
 ## [2.7.2] — 2026-05-03 — Bêta
 
 ### 🐛 Corrections

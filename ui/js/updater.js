@@ -13,6 +13,9 @@ const UpdaterUI = {
       this.status = await api().updater_status();
     } catch (e) {}
 
+    // Synchronise tous les affichages de version (topbar, splash, à propos)
+    this._syncVersionDisplays();
+
     // Bind global pour push depuis Python
     window.onUpdaterStatus = (s) => {
       this.status = s;
@@ -29,6 +32,16 @@ const UpdaterUI = {
 
     this.renderBanner();
     this.renderPrefsStatus();
+  },
+
+  _syncVersionDisplays() {
+    const v = (this.status && this.status.current_version) || "—";
+    const brand = document.getElementById("brand-version");
+    if (brand) brand.textContent = "v" + v;
+    const about = document.getElementById("about-version");
+    if (about) about.textContent = `Le Studio PDF — version ${v}`;
+    const splash = document.querySelector(".splash-version");
+    if (splash) splash.textContent = `Version ${v}`;
   },
 
   renderBanner() {
