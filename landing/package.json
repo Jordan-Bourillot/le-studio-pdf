@@ -1,0 +1,14 @@
+{
+  "name": "studio-pdf-landing",
+  "version": "1.0.0",
+  "description": "Landing minimaliste Le Studio PDF",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "deploy": "netlify deploy --prod"
+  },
+  "dependencies": {
+    "resend": "^4.0.0",
+    "stripe": "^17.0.0"
+  }
+}

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Studio PDF — Triskell Studio</title>
+  <meta name="description" content="Fusion, split, OCR, signature — tout pour tes PDF. Application Windows, paiement unique, à vie." />
+  <meta property="og:title" content="Le Studio PDF — Triskell Studio" />
+  <meta property="og:description" content="Tout pour tes PDF, en local. Paiement unique, mises à jour à vie." />
+  <meta property="og:image" content="https://studio-pdf.triskell-studio.fr/og.svg" />
+  <meta property="og:url" content="https://studio-pdf.triskell-studio.fr" />
+  <meta property="og:type" content="product" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://studio-pdf.triskell-studio.fr/og.svg" />
+  <link rel="icon" href="/img/icon.png" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="redirect-overlay" aria-live="polite">
+    <div class="redirect-spinner" aria-hidden="true"></div>
+    <p>Redirection vers le paiement Stripe…</p>
+  </div>
+
+  <main class="card">
+    <img src="/img/icon.png" alt="" class="logo"
+         onerror="this.style.display='none';" />
+    <h1>Le Studio PDF</h1>
+    <p class="tagline">Fusion, split, OCR, signature — tout pour tes PDF.</p>
+
+    <div class="price-row">
+      <span class="price-amount">39 €</span>
+      <span class="price-note">Paiement unique · à vie</span>
+    </div>
+
+    <button id="buy-btn" class="btn-primary">
+      Acheter Le Studio PDF
+    </button>
+
+    <p class="legal muted">
+      Sécurisé par Stripe · livraison immédiate ·
+      <a href="/cgv.html">CGV</a> ·
+      <a href="/politique-remboursement.html">Remboursement 14 jours</a>
+    </p>
+  </main>
+
+  <footer>
+    <a href="https://triskell-studio.fr">Triskell Studio</a>
+    · <a href="mailto:contact@triskell-studio.fr">contact@triskell-studio.fr</a>
+    · <a href="/mentions-legales.html">Mentions légales</a>
+  </footer>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

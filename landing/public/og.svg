@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d0f12"/>
+      <stop offset="60%" stop-color="#14171c"/>
+      <stop offset="100%" stop-color="#0d0f12"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="38%" r="55%">
+      <stop offset="0%" stop-color="#c9a961" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#c9a961" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#halo)"/>
+
+  <!-- Pictogramme PDF -->
+  <g transform="translate(600, 200)">
+    <rect x="-90" y="-100" width="180" height="200" rx="14" fill="#161a20" stroke="#c9a961" stroke-width="3"/>
+    <text x="0" y="22" text-anchor="middle"
+          font-family="Cinzel, Georgia, serif"
+          font-size="56" font-weight="700"
+          fill="#c9a961"
+          letter-spacing="2">PDF</text>
+  </g>
+
+  <text x="600" y="420" text-anchor="middle"
+        font-family="Cinzel, Georgia, serif"
+        font-size="68"
+        font-weight="700"
+        fill="#ecebf5"
+        letter-spacing="1">Le Studio PDF</text>
+
+  <text x="600" y="475" text-anchor="middle"
+        font-family="-apple-system, Segoe UI, sans-serif"
+        font-size="24"
+        fill="#9aa0ab">
+    Fusion, split, OCR, signature — tout pour tes PDF.
+  </text>
+
+  <!-- Prix -->
+  <g transform="translate(600, 525)">
+    <rect x="-90" y="-22" width="180" height="44" rx="22" fill="#c9a961"/>
+    <text x="0" y="9" text-anchor="middle"
+          font-family="-apple-system, Segoe UI, sans-serif"
+          font-size="22" font-weight="700" fill="#1a1408">
+      39 € · à vie
+    </text>
+  </g>
+
+  <text x="600" y="600" text-anchor="middle"
+        font-family="-apple-system, Segoe UI, sans-serif"
+        font-size="14"
+        fill="#6b7280"
+        letter-spacing="2">
+    TRISKELL STUDIO · STUDIO-PDF.TRISKELL-STUDIO.FR
+  </text>
+</svg>

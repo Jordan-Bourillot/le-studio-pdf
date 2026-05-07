@@ -97,6 +97,8 @@ const MergeView = {
   _exitSuccess() {
     $("#merge-success").hidden = true;
     $("#step-row-1").hidden = false;
+    const tip = $("#view-merge .bertrand-tip");
+    if (tip) tip.hidden = false;
   },
 
   _showSuccess(info) {
@@ -107,6 +109,8 @@ const MergeView = {
     $("#step-row-1").hidden = true;
     $("#step-row-2").hidden = true;
     $("#step-row-3").hidden = true;
+    const tip = $("#view-merge .bertrand-tip");
+    if (tip) tip.hidden = true;
   },
 
   _updateAddZone(empty) {
@@ -151,7 +155,8 @@ const MergeView = {
     const subtitle = $("#step-2-subtitle");
     if (subtitle) {
       const n = this.files.length;
-      subtitle.textContent = `${n} fichier${n > 1 ? "s" : ""} prêt${n > 1 ? "s" : ""} — utilisez les flèches pour réorganiser, ✕ pour retirer.`;
+      const verb = n > 1 ? "Glissez les lignes pour les réordonner" : "Ajoutez d'autres fichiers pour réorganiser l'ordre";
+      subtitle.textContent = `${n} fichier${n > 1 ? "s" : ""} prêt${n > 1 ? "s" : ""} — ${verb}, ✕ pour retirer.`;
     }
 
     const totalPages = this.files.reduce((s, f) => s + (f.page_count || 0), 0);
@@ -159,11 +164,16 @@ const MergeView = {
     totals.innerHTML = `Total : <strong>${totalPages} page${totalPages > 1 ? "s" : ""}</strong> — ${formatBytes(totalBytes)}`;
 
     const checkSvg = `<svg viewBox="0 0 12 12" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M2.5 6.3 5 8.8 9.5 3.5"/></svg>`;
+    const gripSvg = `<svg viewBox="0 0 16 16" aria-hidden="true" width="14" height="14"><circle cx="6" cy="4" r="1.3"/><circle cx="6" cy="8" r="1.3"/><circle cx="6" cy="12" r="1.3"/><circle cx="10" cy="4" r="1.3"/><circle cx="10" cy="8" r="1.3"/><circle cx="10" cy="12" r="1.3"/></svg>`;
+    const upSvg = `<svg viewBox="0 0 16 16" aria-hidden="true" width="14" height="14"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4 9 8 5 12 9"/></svg>`;
+    const downSvg = `<svg viewBox="0 0 16 16" aria-hidden="true" width="14" height="14"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4 7 8 11 12 7"/></svg>`;
+    const closeSvg = `<svg viewBox="0 0 16 16" aria-hidden="true" width="12" height="12"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" d="M4 4 12 12 M12 4 4 12"/></svg>`;
 
     list.innerHTML = this.files
       .map(
         (f, idx) => `
-      <li class="merge-item" data-idx="${idx}">
+      <li class="merge-item" data-idx="${idx}" draggable="true">
+        <span class="merge-item-grip" aria-hidden="true" title="Glissez pour réordonner">${gripSvg}</span>
         <span class="merge-item-pos">${idx + 1}</span>
         <span class="merge-item-icon">📄</span>
         <div class="merge-item-info">
@@ -174,9 +184,9 @@ const MergeView = {
           <span class="merge-item-meta">${f.page_count} page${f.page_count > 1 ? "s" : ""} — ${formatBytes(f.size_bytes)}</span>
         </div>
         <span class="merge-item-controls">
-          <button class="merge-item-btn merge-item-up" data-idx="${idx}" ${idx === 0 ? "disabled" : ""} title="Monter" aria-label="Monter">↑</button>
-          <button class="merge-item-btn merge-item-down" data-idx="${idx}" ${idx === this.files.length - 1 ? "disabled" : ""} title="Descendre" aria-label="Descendre">↓</button>
-          <button class="merge-item-btn merge-item-remove" data-idx="${idx}" title="Retirer" aria-label="Retirer">✕</button>
+          <button class="merge-item-btn merge-item-up" data-idx="${idx}" ${idx === 0 ? "disabled" : ""} title="Monter" aria-label="Monter">${upSvg}</button>
+          <button class="merge-item-btn merge-item-down" data-idx="${idx}" ${idx === this.files.length - 1 ? "disabled" : ""} title="Descendre" aria-label="Descendre">${downSvg}</button>
+          <button class="merge-item-btn merge-item-remove" data-idx="${idx}" title="Retirer" aria-label="Retirer">${closeSvg}</button>
         </span>
       </li>`
       )
@@ -191,6 +201,8 @@ const MergeView = {
     list.querySelectorAll(".merge-item-remove").forEach((b) =>
       b.addEventListener("click", () => this.remove(parseInt(b.dataset.idx, 10)))
     );
+
+    this._wireListDnD(list);
 
     const nameInput = $("#merge-name");
     if (!nameInput.value) {
@@ -217,6 +229,12 @@ const MergeView = {
     try {
       const res = await api().merge_pdfs(paths, dir, name);
       if (res.ok) {
+        if (res.info && res.info.renamed_from) {
+          showToast(
+            `Le fichier « ${res.info.renamed_from} » existait déjà — celui-ci a été enregistré sous « ${res.info.filename} ».`,
+            "info"
+          );
+        }
         this._showSuccess(res.info);
       } else {
         showToast(res.error || "Échec de la fusion.", "error");
@@ -247,8 +265,12 @@ const MergeView = {
     const dz = $("#merge-add-zone");
     if (!dz) return;
 
+    const isInternalDrag = (e) =>
+      e.dataTransfer && Array.from(e.dataTransfer.types || []).includes("application/x-merge-item-idx");
+
     ["dragenter", "dragover"].forEach((ev) => {
       dz.addEventListener(ev, (e) => {
+        if (isInternalDrag(e)) return;
         e.preventDefault();
         e.stopPropagation();
         dz.classList.add("dragging");
@@ -260,6 +282,7 @@ const MergeView = {
       });
     });
     dz.addEventListener("drop", async (e) => {
+      if (isInternalDrag(e)) return;
       e.preventDefault();
       e.stopPropagation();
       dz.classList.remove("dragging");
@@ -278,6 +301,70 @@ const MergeView = {
     dz.addEventListener("click", (e) => {
       if (e.target.closest(".merge-add-button")) return;
       this.addFiles();
+    });
+  },
+
+  _wireListDnD(list) {
+    let sourceIdx = -1;
+    const clearMarkers = () => {
+      list.querySelectorAll(".drag-over-top, .drag-over-bottom").forEach((el) => {
+        el.classList.remove("drag-over-top", "drag-over-bottom");
+      });
+    };
+
+    list.querySelectorAll(".merge-item").forEach((li) => {
+      const idx = parseInt(li.dataset.idx, 10);
+
+      li.addEventListener("dragstart", (e) => {
+        if (e.target.closest(".merge-item-btn")) {
+          e.preventDefault();
+          return;
+        }
+        sourceIdx = idx;
+        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.setData("application/x-merge-item-idx", String(idx));
+        try { e.dataTransfer.setData("text/plain", String(idx)); } catch (_) {}
+        requestAnimationFrame(() => li.classList.add("dragging"));
+      });
+
+      li.addEventListener("dragend", () => {
+        sourceIdx = -1;
+        li.classList.remove("dragging");
+        clearMarkers();
+      });
+
+      li.addEventListener("dragover", (e) => {
+        if (sourceIdx < 0) return;
+        e.preventDefault();
+        e.dataTransfer.dropEffect = "move";
+        const rect = li.getBoundingClientRect();
+        const isTop = e.clientY - rect.top < rect.height / 2;
+        clearMarkers();
+        li.classList.add(isTop ? "drag-over-top" : "drag-over-bottom");
+      });
+
+      li.addEventListener("dragleave", (e) => {
+        if (!li.contains(e.relatedTarget)) {
+          li.classList.remove("drag-over-top", "drag-over-bottom");
+        }
+      });
+
+      li.addEventListener("drop", (e) => {
+        if (sourceIdx < 0) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const rect = li.getBoundingClientRect();
+        const isTop = e.clientY - rect.top < rect.height / 2;
+        let targetIdx = idx + (isTop ? 0 : 1);
+        const src = sourceIdx;
+        clearMarkers();
+        sourceIdx = -1;
+        if (src < targetIdx) targetIdx--;
+        if (src === targetIdx || targetIdx < 0 || targetIdx >= this.files.length) return;
+        const [item] = this.files.splice(src, 1);
+        this.files.splice(targetIdx, 0, item);
+        this.render();
+      });
     });
   },
 };

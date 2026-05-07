@@ -33,3 +33,6 @@ Thumbs.db
 !ui/assets/*.png
 !ui/assets/*.svg
 !ui/assets/*.ico
+
+# Local Netlify folder
+.netlify

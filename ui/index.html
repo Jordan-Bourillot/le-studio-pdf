@@ -885,11 +885,11 @@
         <div class="module-hero">
           <span class="module-icon">✂️</span>
           <h1 class="module-title">Découper un PDF</h1>
-          <p class="module-subtitle">Extrayez les pages que vous voulez dans un nouveau PDF.</p>
+          <p class="module-subtitle">Extrayez les pages que vous voulez, dans l'ordre que vous voulez.</p>
         </div>
         <div class="bertrand-tip">
           <img class="bertrand-tip-mascot" src="assets/bertrand_logo.png" alt="" />
-          <div class="bertrand-tip-bubble">On garde juste les bonnes pages, le reste ne sort pas du tiroir.</div>
+          <div class="bertrand-tip-bubble">On garde juste les bonnes pages, et on peut même les remettre dans le bon ordre au passage.</div>
         </div>
 
         <div class="step-row" id="spl-step-row-1">
@@ -923,14 +923,14 @@
           <div class="step">
             <span class="step-num">2</span>
             <div class="step-content">
-              <span class="step-title">Choisissez les pages à extraire</span>
-              <span class="step-subtitle">Saisissez des numéros de page séparés par des virgules. Les plages sont supportées (ex : 1-5, 8, 10-12).</span>
+              <span class="step-title">Choisissez les pages (et leur ordre)</span>
+              <span class="step-subtitle">Numéros séparés par des virgules. Plages : <code>1-5, 8, 10-12</code>. L'ordre que vous tapez est l'ordre de sortie : <code>3, 1, 2</code> réorganise.</span>
             </div>
           </div>
           <div class="spl-pages-block">
             <div class="form-row">
-              <label class="form-label" for="spl-ranges">Pages à extraire</label>
-              <input class="form-input" id="spl-ranges" type="text" placeholder="ex : 1-5, 8, 10-12" autocomplete="off" />
+              <label class="form-label" for="spl-ranges">Pages à conserver (dans l'ordre voulu)</label>
+              <input class="form-input" id="spl-ranges" type="text" placeholder="ex : 1-5, 8, 10-12  ou  3, 1, 2" autocomplete="off" />
             </div>
 
             <div class="spl-helpers">
@@ -939,6 +939,7 @@
               <button class="spl-helper" data-helper="odd">Pages impaires</button>
               <button class="spl-helper" data-helper="first-half">1ʳᵉ moitié</button>
               <button class="spl-helper" data-helper="second-half">2ᵉ moitié</button>
+              <button class="spl-helper" data-helper="reverse">Inverser l'ordre</button>
               <button class="spl-helper" data-helper="last">Dernière page</button>
             </div>
 

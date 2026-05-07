@@ -199,15 +199,38 @@ class Bridge:
             output_name = "fusion.pdf"
         if not output_name.lower().endswith(".pdf"):
             output_name = output_name + ".pdf"
-        output_path = str(Path(output_dir) / output_name)
+        requested_name = output_name
+        target_path = self._unique_output_path(Path(output_dir), output_name)
+        renamed = target_path.name != requested_name
         try:
-            info = _merge_pdfs(paths, output_path)
+            info = _merge_pdfs(paths, str(target_path))
             repo.add_recent(info["path"], info["filename"], info["page_count"], action="fusionné")
+            if renamed:
+                info = {**info, "renamed_from": requested_name}
             return {"ok": True, "info": info}
         except MergeError as e:
             return {"ok": False, "error": str(e)}
         except Exception as e:
             return {"ok": False, "error": f"Erreur inattendue : {e}"}
+
+    @staticmethod
+    def _unique_output_path(output_dir: Path, filename: str) -> Path:
+        """Return a path inside output_dir that does not yet exist.
+
+        If `filename` is free, return it as-is. Otherwise append " (2)", " (3)", …
+        before the extension until a free name is found.
+        """
+        candidate = output_dir / filename
+        if not candidate.exists():
+            return candidate
+        stem = candidate.stem
+        suffix = candidate.suffix
+        n = 2
+        while True:
+            candidate = output_dir / f"{stem} ({n}){suffix}"
+            if not candidate.exists():
+                return candidate
+            n += 1
 
     # --- Module Compresser ---
 

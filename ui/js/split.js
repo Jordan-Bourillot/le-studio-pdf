@@ -136,6 +136,13 @@ const SplitView = {
     }
   },
 
+  _isReordered(pages) {
+    for (let i = 1; i < pages.length; i++) {
+      if (pages[i] < pages[i - 1]) return true;
+    }
+    return false;
+  },
+
   _refreshPreview() {
     if (!this.file) return;
     const total = this.file.page_count;
@@ -155,7 +162,11 @@ const SplitView = {
       const summary = pages.length <= 8
         ? pages.join(", ")
         : `${pages.slice(0, 5).join(", ")}, …, ${pages[pages.length - 1]}`;
-      text.innerHTML = `Vous obtiendrez <strong>${pages.length} page${pages.length > 1 ? "s" : ""}</strong> (${summary}) dans un nouveau PDF.`;
+      const reordered = this._isReordered(pages);
+      const verb = reordered
+        ? `réorganisée${pages.length > 1 ? "s" : ""} dans cet ordre`
+        : `dans un nouveau PDF`;
+      text.innerHTML = `Vous obtiendrez <strong>${pages.length} page${pages.length > 1 ? "s" : ""}</strong> (${summary}) ${verb}.`;
     } catch (e) {
       preview.className = "spl-preview ko";
       text.textContent = e.message;
@@ -178,7 +189,10 @@ const SplitView = {
     try {
       const pages = parseRangesJS(spec, this.file.page_count);
       runBtn.disabled = false;
-      runBtn.textContent = `Extraire ${pages.length} page${pages.length > 1 ? "s" : ""}`;
+      const plural = pages.length > 1 ? "s" : "";
+      runBtn.textContent = this._isReordered(pages)
+        ? `Extraire et réordonner ${pages.length} page${plural}`
+        : `Extraire ${pages.length} page${plural}`;
     } catch (e) {
       runBtn.disabled = true;
       runBtn.textContent = "Plage invalide";
@@ -204,6 +218,9 @@ const SplitView = {
         break;
       case "second-half":
         spec = `${Math.floor(total / 2) + 1}-${total}`;
+        break;
+      case "reverse":
+        spec = Array.from({ length: total }, (_, i) => total - i).join(", ");
         break;
       case "last":
         spec = `${total}`;
