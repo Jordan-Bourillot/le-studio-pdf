@@ -1,7 +1,7 @@
 ; ============================================================
 ;  Le Studio PDF — installeur Windows (Inno Setup)
 ;  Compilation : double-cliquer sur build_installer.bat
-;  Sortie : installer_output\LeStudioPDF_setup.exe
+;  Sortie : installer_output\LeStudioPDF_setup.exe (nom stable, sans version)
 ; ============================================================
 
 #define MyAppName "Le Studio PDF"
@@ -28,7 +28,7 @@ LicenseFile=
 InfoBeforeFile=
 InfoAfterFile=
 OutputDir=..\installer_output
-OutputBaseFilename=LeStudioPDF_setup_{#MyAppVersion}
+OutputBaseFilename=LeStudioPDF_setup
 SetupIconFile=..\ui\assets\bertrand.ico
 Compression=lzma2/ultra64
 SolidCompression=yes
